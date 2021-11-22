@@ -1,0 +1,102 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+#pane{
+	-fx-background-radius:0 200px 0.0 0.0  ; 
+	-fx-background-color: #fff;
+}
+#ExPane{
+	-fx-background-color:#CCE8FF;
+}
+#btn,#editRequest,#patientreg,#doctorreg,#newpwd,#pharmacistreg{
+	-fx-background-radius:200px;
+	-fx-background-color:#248CE2;
+	-fx-cursor: hand;
+}
+.button{
+	-fx-background-radius:200px;
+	-fx-background-color:#248CE2;
+	-fx-cursor: hand;
+}
+#pane1{
+	-fx-background-color: #fff;
+}
+#user1,#Management,#Messages,#user2,#user3,#PatientRecords,#DrugRecords,#MedicalRecords{
+	-fx-background-radius:50px ; 
+	-fx-background-color:#248CE2;
+	-fx-cursor: hand;
+}
+TextField,PasswordField,#fileupload{
+	-fx-background-color:#ffffff;
+	-fx-border-radius:200px;
+	-fx-border-color:#D9D9D9;
+	-fx-padding:10px;
+}
+.text-area {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-color: #D9D9D9;
+}
+#Message,.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+#Message,.text-area .scroll-pane  .viewport{
+    -fx-background-color: transparent;
+}
+#Message,.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+    -fx-padding:8 30 5 30;
+}
+.date-picker {
+    -fx-border-radius:200px;
+}
+.date-picker > .text-field {
+	-fx-border-color:#D9D9D9;
+	-fx-background-color:#ffffff;
+    -fx-border-radius: 200 0 0 200;
+}
+
+.date-picker > .arrow-button {
+	-fx-border-color:#D9D9D9;
+	-fx-background-color:#ffffff;
+    -fx-border-radius: 0 200 200 0;
+}
+#newAcc,#pwdreset,#back{
+	-fx-cursor: hand;
+}
+.choice-box  { 
+	-fx-background-color:#ffffff;
+	-fx-border-radius:200px;
+	-fx-border-color:#D9D9D9;
+}
+.context-menu {
+    -fx-max-width:282px;
+    -fx-border-radius:200px;
+}
+.radio-button > .radio {
+    -fx-background-color:#ffffff;
+    -fx-border-color:#D9D9D9;
+    -fx-border-radius:200px;
+}
+/*Table View */
+.table-view {
+    -fx-background-color:#FFFFFF;
+    -fx-border-radius:25;
+    -fx-border-color:#D9D9D9;
+} 
+.table-view .column-header-background{
+        -fx-background-color: #FFFFFF;
+        -fx-background-radius:25;
+        -fx-background-insets: 0 0 10 0;
+}
+.table-view .column-header{
+        -fx-size:50px;
+        -fx-border-width: 0 0 10 0;
+        -fx-background-color:transparent;
+}
+#Message {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-border-color: #D9D9D9;
+}

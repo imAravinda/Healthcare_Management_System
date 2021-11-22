@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane1" prefHeight="750.0" prefWidth="735.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PatientSearchControll">
+   <children>
+      <Label layoutX="60.0" layoutY="29.0" text="Search for Patients" textFill="#474c50">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="75.0" text="Patient Infromation" textFill="#b8b8b8">
+      <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="169.0" text="Student or Employee Number" textFill="#474c50">
+      	<font>
+            <Font name="System Bold" />
+        </font>
+      </Label>
+      <TextField fx:id="userID" layoutX="61.0" layoutY="194.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label layoutX="61.0" layoutY="241.0" text="Full Name" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="patientName" layoutX="61.0" layoutY="266.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label layoutX="61.0" layoutY="316.0" text="Email" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="patientEmail" layoutX="61.0" layoutY="341.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label layoutX="62.0" layoutY="395.0" text="Date of birth" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="392.0" layoutY="169.0" text="Weight" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="patientWeight" layoutX="392.0" layoutY="194.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label layoutX="392.0" layoutY="241.0" text="Height" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="patientHeight" layoutX="392.0" layoutY="266.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label layoutX="395.0" layoutY="316.0" text="Blood Group" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <VBox layoutX="395.0" layoutY="341.0" prefHeight="40.0" prefWidth="282.0">
+         <children>
+            <ChoiceBox layoutY="341.0" prefHeight="40.0" prefWidth="282.0" />
+         </children>
+      </VBox>
+      <Label layoutX="393.0" layoutY="395.0" text="Gender" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <RadioButton fx:id="pMale" layoutX="393.0" layoutY="426.0" mnemonicParsing="false" text="Male" />
+      <RadioButton fx:id="pFemale" layoutX="593.0" layoutY="426.0" mnemonicParsing="false" text="Female" />
+      <Label layoutX="61.0" layoutY="472.0" text="Other Medical Conditions" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextArea fx:id="Others" layoutX="61.0" layoutY="499.0" prefHeight="112.0" prefWidth="614.0" />
+      <ImageView fitHeight="46.0" fitWidth="220.0" layoutX="58.0" layoutY="670.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Logoo.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="removePatient" layoutX="566.0" layoutY="670.0" onAction="#RemovePatient" prefHeight="38.0" prefWidth="112.0" text="Remove" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <ImageView fx:id="back" fitHeight="18.0" fitWidth="27.0" layoutX="35.0" layoutY="43.0" onMouseClicked="#Backword" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/ARROW.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="SearchPatient" layoutX="61.0" layoutY="119.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="614.0" promptText="Search for patient" />
+      <JFXButton fx:id="updatePatient" layoutX="441.0" layoutY="670.0" onAction="#UpdatePatient" prefHeight="38.0" prefWidth="112.0" text="Update" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="editPatientInfo" layoutX="317.0" layoutY="670.0" onAction="#EditPatientInfo" prefHeight="38.0" prefWidth="112.0" text="Edit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <TextField layoutX="61.0" layoutY="424.0" prefHeight="34.0" prefWidth="282.0" />
+   </children>
+</AnchorPane>

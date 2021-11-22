@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane1" prefHeight="500.0" prefWidth="1000.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MessagesControll">
+   <children>
+      <Label layoutX="53.0" layoutY="47.0" text="Messages" textFill="#474c50">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="53.0" layoutY="93.0" text="Incoming messages from users" textFill="#b8b8b8">
+      	<font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <ImageView fitHeight="36.0" fitWidth="250.0" layoutX="53.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Logoo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="back" fitHeight="18.0" fitWidth="27.0" layoutX="26.0" layoutY="61.0" onMouseClicked="#backword" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/ARROW.png" />
+         </image>
+      </ImageView>
+      <TableView layoutX="53.0" layoutY="135.0" prefHeight="266.0" prefWidth="455.0">
+        <columns>
+          <TableColumn prefWidth="158.40003204345703" text="User" />
+          <TableColumn minWidth="0.0" prefWidth="295.20001220703125" text="Description" />
+        </columns>
+      </TableView>
+      <TextArea fx:id="Message" layoutX="554.0" layoutY="135.0" prefHeight="266.0" prefWidth="403.0" />
+   </children>
+</AnchorPane>

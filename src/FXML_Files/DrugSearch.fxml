@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane1" prefHeight="800.0" prefWidth="735.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DrugSearchControll">
+   <children>
+      <Label layoutX="60.0" layoutY="29.0" text="Search for Drugs" textFill="#474c50">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="75.0" text="Drugs Infromation" textFill="#b8b8b8">
+      <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="519.0" text="Brand" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <VBox layoutX="395.0" layoutY="341.0" prefHeight="40.0" prefWidth="282.0" />
+      <ImageView fitHeight="46.0" fitWidth="220.0" layoutX="56.0" layoutY="727.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Logoo.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="addDrugDetails" layoutX="489.0" layoutY="727.0" onAction="#AddDrugDetails" prefHeight="38.0" prefWidth="182.0" text="Add" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <ImageView fx:id="back" fitHeight="18.0" fitWidth="27.0" layoutX="35.0" layoutY="43.0" onMouseClicked="#Backword" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/ARROW.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="searchByBrand" layoutX="58.0" layoutY="119.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="182.0" promptText="Search by Brand" />
+      <TextField fx:id="brandName" layoutX="58.0" layoutY="548.0" prefHeight="34.0" prefWidth="282.0" promptText="Enter brand name" />
+      <TextField fx:id="searchByDrug" layoutX="274.0" layoutY="119.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="182.0" promptText="Search by Drug" />
+      <TextField fx:id="searchBySupplier" layoutX="486.0" layoutY="119.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="182.0" promptText="Search by Supplier" />
+      <JFXButton fx:id="searchDrug" layoutX="487.0" layoutY="174.0" onAction="#EditPatientInfo" prefHeight="38.0" prefWidth="182.0" text="Search" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <TableView layoutX="58.0" layoutY="241.0" prefHeight="200.0" prefWidth="615.0">
+        <columns>
+          <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="existingDrugBrand" prefWidth="113.60003662109375" text="Brand" />
+            <TableColumn fx:id="existingDrug" prefWidth="169.60003662109375" text="Drug" />
+            <TableColumn fx:id="existingDrugQty" prefWidth="87.199951171875" text="Qty" />
+            <TableColumn fx:id="existingDrugSupplier" prefWidth="168.79998779296875" text="Supplier" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="editExistingdrug" layoutX="513.0" layoutY="457.0" onAction="#EditExistingdrug" prefHeight="38.0" prefWidth="159.0" text="Edit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="removeExistingDrug" layoutX="340.0" layoutY="457.0" onAction="#RemoveExistingDrug" prefHeight="38.0" prefWidth="159.0" text="Remove" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="389.0" layoutY="514.0" text="Supplier" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="supplierName" layoutX="388.0" layoutY="543.0" prefHeight="34.0" prefWidth="282.0" promptText="Enter supplier name" />
+      <Label layoutX="59.0" layoutY="598.0" text="Drug" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="drugName" layoutX="58.0" layoutY="627.0" prefHeight="34.0" prefWidth="282.0" promptText="Enter the drug name" />
+      <Label layoutX="388.0" layoutY="598.0" text="Quantity" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="drugQuantity" layoutX="388.0" layoutY="627.0" prefHeight="34.0" prefWidth="282.0" promptText="Enter quantity" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane1" prefHeight="475.0" prefWidth="803.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagementControll">
+   <children>
+      <Pane fx:id="MedicalRecords" layoutX="302.0" layoutY="138.0" onMouseClicked="#LinkToMedicalRecords" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/MedicalRecords.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="31.0" layoutY="164.0" text="Medical Records" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="PatientRecords" layoutX="53.0" layoutY="137.0" onMouseClicked="#LinkToPatientRecords" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="26.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/patientRecords.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="35.0" layoutY="164.0" text="Patient Records" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="DrugRecords" layoutX="550.0" layoutY="137.0" onMouseClicked="#LinkToDrugRecords" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/drugRecords.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="42.0" layoutY="164.0" text="Drug Records" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="53.0" layoutY="47.0" text="Management" textFill="#474c50">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="53.0" layoutY="93.0" text="System Management" textFill="#b8b8b8">
+      	<font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <ImageView fitHeight="36.0" fitWidth="250.0" layoutX="53.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Logoo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="back" fitHeight="18.0" fitWidth="27.0" layoutX="26.0" layoutY="61.0" onMouseClicked="#backword" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/ARROW.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
