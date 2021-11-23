@@ -128,7 +128,13 @@ public class DoctorControll {
     	}else{
     		if(!Password.equals(confirmPWD.getText())) {
     			msg.setMessage("Password dosen't match!");
-    		}else if(!Doctor_ID.trim().isEmpty() && !FullName.trim().isEmpty() && !Email.trim().isEmpty() && !Date.trim().isEmpty() && !Hospital.trim().isEmpty() && !Gender.trim().isEmpty()) {
+    		}else if(!Doctor_ID.matches("(DC)\\/[0-9]{7}")) {
+    			msg.setMessage("Invalid User ID type!");
+    		}
+    		else if(Password.length() != 8 ) {
+    			msg.setMessage("Password must contain 12 characters!");
+    		}
+    		else if(!Doctor_ID.trim().isEmpty() && !FullName.trim().isEmpty() && !Email.trim().isEmpty() && !Date.trim().isEmpty() && !Hospital.trim().isEmpty() && !Gender.trim().isEmpty()) {
     			String insert = "INSERT INTO Doctor (doc_id,Name,DOB,Hospital_Name,Email,Password,Gender)"+"VALUES(?,?,?,?,?,?,?)";
             	ps = con.prepareStatement(insert);
             	ps.setString(1, Doctor_ID);

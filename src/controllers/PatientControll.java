@@ -159,7 +159,13 @@ public class PatientControll {
     	else {
     		if(!Password.equals(confirmPWD.getText())) {
     			msg.setMessage("Password dosen't match!");
-        	}else if(!Patient_ID.trim().isEmpty() && !FullName.trim().isEmpty() && !Email.trim().isEmpty() && !Date.trim().isEmpty() && !Weight.trim().isEmpty() && !Height.trim().isEmpty() && !Blood_Group.trim().isEmpty() && !Gender.trim().isEmpty()){
+        	}else if(!Patient_ID.matches("([A-Z]||[a-z]){2}\\/[2][0-9]{3}\\/[1][0-9]{4}")) {
+    			msg.setMessage("Invalid User ID type!");
+    		}
+        	else if(Password.length() != 8 ) {
+    			msg.setMessage("Password must contain 12 characters!");
+    		}
+    		else if(!Patient_ID.trim().isEmpty() && !FullName.trim().isEmpty() && !Email.trim().isEmpty() && !Date.trim().isEmpty() && !Weight.trim().isEmpty() && !Height.trim().isEmpty() && !Blood_Group.trim().isEmpty() && !Gender.trim().isEmpty()){
         		String insert = "INSERT INTO Patient (Patient_ID,Name,Email,Password,DOB,Weight,Height,Blood_Group,Gender,Others)"+"VALUES(?,?,?,?,?,?,?,?,?,?)";
             	ps = con.prepareStatement(insert);
             	ps.setString(1, Patient_ID);
