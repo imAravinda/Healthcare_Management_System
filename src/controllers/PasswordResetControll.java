@@ -56,11 +56,16 @@ public class PasswordResetControll {
     @FXML
     private JFXButton Send;
     
+    @FXML
+    private TextField User_ID;
+    
     private PreparedStatement ps;
     DataBase_Connection conOBJ = new DataBase_Connection();
     Connection con;
     ResultSet resultSet=null;
-    
+    ResultSet resultSet1=null;
+    private PreparedStatement psCheckEmailExists=null;
+    private PreparedStatement psCheckUserExists=null;
     Message msg = new Message();
     public static String generateOTP() 
     {  
@@ -122,6 +127,8 @@ public class PasswordResetControll {
     	String OTP1 = OTP.getText();
     	String PWD = newPWD.getText();
     	String Mail = Email.getText();
+    	String UserID = User_ID.getText();
+    	
     	if(!G_OTP.equals(OTP1)) {
     		msg.setMessage("Invalid OTP!");
     	}
@@ -131,13 +138,72 @@ public class PasswordResetControll {
     	else if(!PWD.equals(confirmpwd.getText())) {
     		msg.setMessage("Password dosen't match!");
     	}
-    	else {
+    	else{
     		con = conOBJ.getConnection();
-        	ps=con.prepareStatement("UPDATE patient SET Password = ? WHERE Email = ?");
-        	ps.setString(1,PWD);
-        	ps.setString(2,Mail);
-        	ps.executeUpdate();
-        	msg.setMessage("Password changed successfully!");
+    		if(UserID.matches("([A-Z]||[a-z]){2}\\/[2][0-9]{3}\\/[1][0-9]{4}")) {
+    			psCheckEmailExists=con.prepareStatement("SELECT * FROM patient WHERE Email=?");
+    			psCheckUserExists=con.prepareStatement("SELECT * FROM patient WHERE Patient_ID=?");
+    			psCheckEmailExists.setString(1,Mail);
+    			psCheckUserExists.setString(1, UserID);
+    			resultSet1 = psCheckUserExists.executeQuery();
+    	        resultSet= psCheckEmailExists.executeQuery();
+    	        if(!resultSet.isBeforeFirst()) {
+    	        	msg.setMessage("Invalid Email");
+    	        }
+    	        else if(!resultSet.isBeforeFirst()) {
+    	        	msg.setMessage("Invalid User ID");
+    	        }
+    	        else {
+    	        	ps=con.prepareStatement("UPDATE patient SET Password = ? WHERE Email = ?");
+                	ps.setString(1,PWD);
+                	ps.setString(2,Mail);
+                	ps.executeUpdate();
+                	msg.setMessage("Password changed successfully!");
+    	        }
+    			
+    		}
+    		else if(UserID.matches("(DC)\\/[0-9]{7}")) {
+    			psCheckEmailExists=con.prepareStatement("SELECT * FROM doctor WHERE Email=?");
+    			psCheckUserExists=con.prepareStatement("SELECT * FROM doctor WHERE doc_id=?");
+    			psCheckEmailExists.setString(1,Mail);
+    			psCheckUserExists.setString(1, UserID);
+    			resultSet1 = psCheckUserExists.executeQuery();
+    	        resultSet= psCheckEmailExists.executeQuery();
+    	        if(!resultSet.isBeforeFirst()) {
+    	        	msg.setMessage("Invalid Email");
+    	        }
+    	        else if(!resultSet.isBeforeFirst()) {
+    	        	msg.setMessage("Invalid User ID");
+    	        }
+    	        else {
+    	        	ps=con.prepareStatement("UPDATE patient SET Password = ? WHERE Email = ?");
+                	ps.setString(1,PWD);
+                	ps.setString(2,Mail);
+                	ps.executeUpdate();
+                	msg.setMessage("Password changed successfully!");
+    	        }
+    		}
+    		else if(UserID.matches("(PH)\\/[0-9]{7}")) {
+    			psCheckEmailExists=con.prepareStatement("SELECT * FROM pharmacist WHERE Email=?");
+    			psCheckUserExists=con.prepareStatement("SELECT * FROM pharmacist WHERE Phar_ID=?");
+    			psCheckEmailExists.setString(1,Mail);
+    			psCheckUserExists.setString(1, UserID);
+    			resultSet1 = psCheckUserExists.executeQuery();
+    	        resultSet= psCheckEmailExists.executeQuery();
+    	        if(!resultSet.isBeforeFirst()) {
+    	        	msg.setMessage("Invalid Email");
+    	        }
+    	        else if(!resultSet.isBeforeFirst()) {
+    	        	msg.setMessage("Invalid User ID");
+    	        }
+    	        else {
+    	        	ps=con.prepareStatement("UPDATE patient SET Password = ? WHERE Email = ?");
+                	ps.setString(1,PWD);
+                	ps.setString(2,Mail);
+                	ps.executeUpdate();
+                	msg.setMessage("Password changed successfully!");
+    	        }
+    		}
     	}
     }
 }
