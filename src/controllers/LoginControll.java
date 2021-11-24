@@ -61,7 +61,6 @@ public class LoginControll {
     DataBase_Connection conOBJ = new DataBase_Connection();
     Connection con;
     Message msg = new Message();
-    
     @FXML
     void CreateAcc(MouseEvent event) {
     	newAcc.getScene().getWindow().hide();
@@ -103,23 +102,27 @@ public class LoginControll {
         
     	//Patient login data retrieve
     	if(ID.matches("([A-Z]||[a-z]){2}\\/[2][0-9]{3}\\/[1][0-9]{4}")) {
-    		PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM patient WHERE Patient_ID=?");
-            psCheckUserExists.setString(1,user.getText());
-            ResultSet resultSet= psCheckUserExists.executeQuery();
     		String patient = "SELECT *FROM Patient where Patient_ID=? and Password=?";
-        	
         	ps = con.prepareStatement(patient);
         	
         	ps.setString(1, ID);
         	ps.setString(2, PWD.getText());
         	
         	ResultSet rs = ps.executeQuery();
-        	
-        	if(rs.next()) {
-        		if(!resultSet.isBeforeFirst()) {
-            		msg.setMessage("This user dosen't exist!");
-            	}
-        		else {
+        	PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM patient WHERE Patient_ID=?");
+            psCheckUserExists.setString(1,user.getText());
+            ResultSet resultSet= psCheckUserExists.executeQuery();
+            PreparedStatement psCheckPassword=con.prepareStatement("SELECT * FROM patient WHERE Password=?");
+            psCheckPassword.setString(1,PWD.getText());
+            ResultSet resultSet1= psCheckPassword.executeQuery();
+        	if(!resultSet1.isBeforeFirst()) {
+        		msg.setMessage("Invalid Password!");
+        	}
+        	else if(!resultSet.isBeforeFirst()) {
+        		msg.setWarningMessage("This user dosen't exist!");
+        	}
+        	else {
+        		if(rs.next()) {
         			btn.getScene().getWindow().hide();
                 	Stage PatientLogin = new Stage();
                 	
@@ -132,15 +135,10 @@ public class LoginControll {
         			PatientLogin.setResizable(false);
         			PatientLogin.setScene(scene);
         			PatientLogin.show();
-        			
-        			LC.LoginDetails(ID);
-        		}
-        	}
+            	}
+    		}
     	}
     	else if(ID.matches("(DC)\\/[0-9]{7}")) {
-    		PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM doctor WHERE doc_id=?");
-            psCheckUserExists.setString(1,user.getText());
-            ResultSet resultSet= psCheckUserExists.executeQuery();
     		String doc = "SELECT *FROM Doctor where doc_id=? and Password=?";
         	
         	ps = con.prepareStatement(doc);
@@ -149,11 +147,20 @@ public class LoginControll {
         	ps.setString(2, PWD.getText());
         	
         	ResultSet rs1 = ps.executeQuery();
-        	if(rs1.next()) {
-    			if(!resultSet.isBeforeFirst()) {
-            		msg.setMessage("This user dosen't exist!");
-            	}
-    			else {
+        	PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM doctor WHERE doc_id=?");
+            psCheckUserExists.setString(1,user.getText());
+            ResultSet resultSet= psCheckUserExists.executeQuery();
+            PreparedStatement psCheckPassword=con.prepareStatement("SELECT * FROM doctor WHERE Password=?");
+            psCheckPassword.setString(1,PWD.getText());
+            ResultSet resultSet1= psCheckPassword.executeQuery();
+        	if(!resultSet1.isBeforeFirst()) {
+        		msg.setMessage("Invalid Password!");
+        	}
+        	else if(!resultSet.isBeforeFirst()) {
+        		msg.setWarningMessage("This user dosen't exist!");
+        	}
+    		else {
+    			if(rs1.next()) {
     				btn.getScene().getWindow().hide();
     	        	Stage DoctorLogin = new Stage();
     	        	
@@ -166,14 +173,12 @@ public class LoginControll {
     	    		} catch (IOException e) {
     	    			e.printStackTrace();
     	    		}
-    			}
+            		
+            	}
+    		}
         		
-        	}
     	}
     	else if(ID.matches("(PH)\\/[0-9]{7}")) {
-    		PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM pharmacist WHERE Phar_ID=?");
-            psCheckUserExists.setString(1,user.getText());
-            ResultSet resultSet= psCheckUserExists.executeQuery();
     		String pharmacist = "SELECT *FROM pharmacist where Phar_ID=? and Password=?";
         	
         	ps = con.prepareStatement(pharmacist);
@@ -182,12 +187,22 @@ public class LoginControll {
         	ps.setString(2, PWD.getText());
         	
         	ResultSet rs2 = ps.executeQuery();
-    		if(rs2.next()) {
-        		if(!resultSet.isBeforeFirst()) {
-            		msg.setMessage("This user dosen't exist!");
-            	}
-        		else {
-        			btn.getScene().getWindow().hide();
+        	PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM pharmacist WHERE Phar_ID=?");
+            psCheckUserExists.setString(1,user.getText());
+            ResultSet resultSet= psCheckUserExists.executeQuery();
+            PreparedStatement psCheckPassword=con.prepareStatement("SELECT * FROM pharmacist WHERE Password=?");
+            psCheckPassword.setString(1,PWD.getText());
+            ResultSet resultSet1= psCheckPassword.executeQuery();
+        	if(!resultSet1.isBeforeFirst()) {
+        		msg.setMessage("Invalid Password!");
+        	}
+        	else if(!resultSet.isBeforeFirst()) {
+        		msg.setWarningMessage("This user dosen't exist!");
+        	}
+    		else {
+    			if(rs2.next()) {
+            		
+            		btn.getScene().getWindow().hide();
                 	Stage PharmacistLogin = new Stage();
                 	
                 	try {
@@ -199,11 +214,12 @@ public class LoginControll {
             		} catch (IOException e) {
             			e.printStackTrace();
             		}
-        		}
+            	}
+        		
         	}
     	}
     	else {
-    		msg.setMessage("Invalid User ID or PasswordR");
+    		msg.setMessage("Invalid User ID !");
     	}
     	
     }

@@ -154,7 +154,7 @@ public class PatientControll {
     	String Gender = selectGender(null);
     	String Other = Others.getText();
     	if(resultSet.isBeforeFirst()){
-    		msg.setMessage("This user already exist!");
+    		msg.setInformationMessage("This user already exist!");
     	}
     	else {
     		if(!Password.equals(confirmPWD.getText())) {
@@ -163,7 +163,7 @@ public class PatientControll {
     			msg.setMessage("Invalid User ID type!");
     		}
         	else if(Password.length() != 8 ) {
-    			msg.setMessage("Password must contain 12 characters!");
+    			msg.setInformationMessage("Password must contain 8 characters!");
     		}
     		else if(!Patient_ID.trim().isEmpty() && !FullName.trim().isEmpty() && !Email.trim().isEmpty() && !Date.trim().isEmpty() && !Weight.trim().isEmpty() && !Height.trim().isEmpty() && !Blood_Group.trim().isEmpty() && !Gender.trim().isEmpty()){
         		String insert = "INSERT INTO Patient (Patient_ID,Name,Email,Password,DOB,Weight,Height,Blood_Group,Gender,Others)"+"VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -180,11 +180,11 @@ public class PatientControll {
             	ps.setString(10, Other);
             	
             	ps.executeUpdate();
-            	msg.setMessage("Registration Successed!");
+            	msg.setSuccessMessage("Registration Successed!");
         	}
         	else
         	{
-        		msg.setMessage("Please fill all required fields!");
+        		msg.setWarningMessage("Please fill all required fields!");
         	}
     	}
     	

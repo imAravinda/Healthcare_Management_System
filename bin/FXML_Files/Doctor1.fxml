@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane1" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Doctor1Controller">
+   <children>
+      <Label layoutX="61.0" layoutY="33.0" text="Doctor " textFill="#474c50">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="79.0" text="Diagnosis and Prescription" textFill="#b8b8b8">
+      <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="175.0" text="User ID" textFill="#474c50">
+      	<font>
+            <Font name="System Bold" />
+        </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="247.0" text="Full Name" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="360.0" layoutY="319.0" text="Date of birth" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <ImageView fitHeight="46.0" fitWidth="220.0" layoutX="52.0" layoutY="622.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Logoo.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="editRequest" layoutX="1019.0" layoutY="33.0" onAction="#AccountSetting" prefHeight="38.0" prefWidth="220.0" text="Account Settings" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <ImageView fx:id="back" fitHeight="18.0" fitWidth="27.0" layoutX="36.0" layoutY="47.0" onMouseClicked="#backword" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/ARROW.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="docID1" layoutX="54.0" layoutY="118.0" prefHeight="40.0" prefWidth="586.0" promptText="Search for Patient" />
+      <Label layoutX="360.0" layoutY="175.0" text="Height" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="360.0" layoutY="247.0" text="Weight" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="319.0" text="Blood Group" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TableView editable="true" layoutX="54.0" layoutY="441.0" prefHeight="143.0" prefWidth="586.0">
+        <columns>
+          <TableColumn fx:id="Date" prefWidth="103.99996566772461" text="Date" />
+          <TableColumn fx:id="Drugs" prefWidth="158.40000915527344" text="Drugs" />
+            <TableColumn fx:id="Diseases" prefWidth="322.4" text="Diseases" />
+        </columns>
+      </TableView>
+      <Label layoutX="54.0" layoutY="396.0" text="Prescriptions History" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="414.0" text="Diagnosis and Prescription" textFill="#b8b8b8">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <Label layoutX="736.0" layoutY="88.0" text="Disease" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="disease" layoutX="736.0" layoutY="118.0" prefHeight="40.0" prefWidth="503.0" />
+      <TextField fx:id="drugSearch" layoutX="736.0" layoutY="200.0" prefHeight="40.0" prefWidth="503.0" promptText="Search for drugs" />
+      <Label layoutX="736.0" layoutY="247.0" text="Drug Duration" textFill="#474c50">
+         <font>
+            <Font name="System Bold" />
+         </font>
+      </Label>
+      <TextField fx:id="drugDuration" layoutX="736.0" layoutY="271.0" prefHeight="34.0" prefWidth="282.0" promptText="Enter the drug duration" />
+      <JFXButton fx:id="addDrug" layoutX="1034.0" layoutY="275.0" onAction="#AddDrugs" prefHeight="34.0" prefWidth="98.0" text="Add" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="clearDrug" layoutX="1140.0" layoutY="275.0" onAction="#ClearDrugs" prefHeight="34.0" prefWidth="98.0" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <TableView editable="true" layoutX="736.0" layoutY="342.0" prefHeight="143.0" prefWidth="503.0">
+         <columns>
+            <TableColumn fx:id="Drugs1" prefWidth="158.40000915527344" text="Drugs" />
+            <TableColumn fx:id="Diseases1" prefWidth="338.4000244140625" text="Description" />
+         </columns>
+      </TableView>
+      <JFXButton fx:id="resetPrescription" layoutX="983.0" layoutY="513.0" onAction="#ResetPrescription" prefHeight="34.0" prefWidth="118.0" text="Reset" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="removePrescription" layoutX="1119.0" layoutY="513.0" onAction="#RemovePrescription" prefHeight="34.0" prefWidth="118.0" text="Remove" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="SubmitPrescription" layoutX="1081.0" layoutY="622.0" onAction="#SubmitPrescription" prefHeight="38.0" prefWidth="156.0" text="Submit" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="logout" layoutX="905.0" layoutY="622.0" onAction="#Logout" prefHeight="38.0" prefWidth="156.0" text="Log out" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="patient_ID" layoutX="54.0" layoutY="203.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label fx:id="Name" layoutX="54.0" layoutY="274.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label fx:id="Blood_Group" layoutX="54.0" layoutY="346.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label fx:id="height" layoutX="360.0" layoutY="203.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label fx:id="weight" layoutX="357.0" layoutY="274.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label fx:id="DOB" layoutX="357.0" layoutY="346.0" prefHeight="34.0" prefWidth="282.0" />
+   </children>
+</AnchorPane>

@@ -149,7 +149,7 @@ public class PharmacistControll {
 	    	File pdf =  new File(file.getAbsolutePath());
 			FileInputStream FIS = new FileInputStream(pdf); 
 	    	if(resultSet.isBeforeFirst()) {
-	    		msg.setMessage("This user already exist!");
+	    		msg.setInformationMessage("This user already exist!");
 	    	}else {
 	    		if(!Password.equals(confirmPWD.getText())) {
 	    			msg.setMessage("Password dosen't match!");
@@ -157,7 +157,7 @@ public class PharmacistControll {
 	    			msg.setMessage("Invalid User ID type!");
 	    		}
 	    		else if(Password.length() != 8 ) {
-	    			msg.setMessage("Password must contain 12 characters!");
+	    			msg.setWarningMessage("Password must contain 8 characters!");
 	    		}
 	    		else if(!Phar_ID.trim().isEmpty() && !Name.trim().isEmpty() && !Email.trim().isEmpty() && !Birth.trim().isEmpty() && !Gender.trim().isEmpty()) {
 	    			String insert = "INSERT INTO pharmacist (Phar_ID,Name,Email,DOB,Gender,License,Password) " + "VALUES (?,?,?,?,?,?,?)";
@@ -170,10 +170,10 @@ public class PharmacistControll {
 			    	ps.setBinaryStream(6,FIS,(int)(pdf.length()));
 			    	ps.setString(7, Password);// byte[] array
 			    	ps.executeUpdate();
-			    	msg.setMessage("Registration Successed!");
+			    	msg.setSuccessMessage("Registration Successed!");
 	    		}
 	    		else {
-	    			msg.setMessage("Please fill all required fields!");
+	    			msg.setWarningMessage("Please fill all required fields!");
 	    		}
 	    	}	
 	    }
