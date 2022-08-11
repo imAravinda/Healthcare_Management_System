@@ -6,75 +6,57 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/fontawesomefx-8.1.jar">
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/javafx.base.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/activation-1.1.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/javafx.controls.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/controlsfx-8.0.1-sources.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/javafx.fxml.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/controlsfx-8.40.11.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/javafx.graphics.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/fontawesomefx-8.9.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/javafx.media.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/javax.mail.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/javafx.swing.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/jfoenix-9.0.10.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/javafx.web.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/mysql-connector-java-8.0.27.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/javafx-swt.jar">
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaFX">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/jfoenix-9.0.10.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/javafx-sdk-17.0.0.1/lib/javafx.fxml.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JavaFX/javafx-sdk-17.0.0.1/lib/jar_files (1)/mysql-connector-java-8.0.26.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="F:/Java/Healthcare_Management_System/lib/activation-1.1.1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="F:/Java/Healthcare_Management_System/lib/javax.mail.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="/Healthcare_System/lib/jfoenix-9.0.10.jar"/>
+	<classpathentry kind="lib" path="/Healthcare_System/lib/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

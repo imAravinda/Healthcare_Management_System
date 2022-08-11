@@ -93,7 +93,7 @@ public class PasswordResetControll {
         	Session session = Session.getDefaultInstance(props,new javax.mail.Authenticator() {
         		@Override
         		protected PasswordAuthentication getPasswordAuthentication() {
-        			return new PasswordAuthentication("ruhunahealthcare@gmail.com", "Ruhhealth123@");
+        			return new PasswordAuthentication("ruhunahealthcare@gmail.com", "xubmakhyechbmpva");
         		}
         	});
         	try {
@@ -104,7 +104,7 @@ public class PasswordResetControll {
         		m.setFrom(new InternetAddress("ruhunahealthcare@gmail.com"));
         		m.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(to));
         		m.setSubject("OTP Code is");
-        		m.setText(G_OTP);
+        		m.setText("Your Password reset OTP is given below\n" + G_OTP);
         		String Mail = Email.getText();
             	if(UserID.matches("([A-Z]||[a-z]){2}\\/[2][0-9]{3}\\/[1][0-9]{4}")) {
             		psCheckEmailExists=con.prepareStatement("SELECT * FROM patient WHERE Email=?");

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane1" prefHeight="800.0" prefWidth="735.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DrugSearchControll">
+<AnchorPane fx:id="pane1" prefHeight="800.0" prefWidth="735.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DrugSearchControll">
    <children>
       <Label layoutX="60.0" layoutY="29.0" text="Search for Drugs" textFill="#474c50">
          <font>
@@ -44,11 +44,11 @@
             <Image url="@../Images/ARROW.png" />
          </image>
       </ImageView>
-      <TextField fx:id="searchByBrand" layoutX="58.0" layoutY="119.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="182.0" promptText="Search by Brand" />
+      <TextField fx:id="searchByBrand" layoutX="58.0" layoutY="119.0" onKeyPressed="#SearchByBrand" prefHeight="40.0" prefWidth="182.0" promptText="Search by Brand" />
       <TextField fx:id="brandName" layoutX="58.0" layoutY="548.0" prefHeight="34.0" prefWidth="282.0" promptText="Enter brand name" />
-      <TextField fx:id="searchByDrug" layoutX="274.0" layoutY="119.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="182.0" promptText="Search by Drug" />
-      <TextField fx:id="searchBySupplier" layoutX="486.0" layoutY="119.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="182.0" promptText="Search by Supplier" />
-      <JFXButton fx:id="searchDrug" layoutX="487.0" layoutY="174.0" onAction="#EditPatientInfo" prefHeight="38.0" prefWidth="182.0" text="Search" textFill="WHITE">
+      <TextField fx:id="searchByDrug" layoutX="274.0" layoutY="119.0" onKeyPressed="#SearchByDrugName" prefHeight="40.0" prefWidth="182.0" promptText="Search by Drug" />
+      <TextField fx:id="searchBySupplier" layoutX="486.0" layoutY="119.0" onKeyPressed="#searchBySupplier" prefHeight="40.0" prefWidth="182.0" promptText="Search by Supplier" />
+      <JFXButton fx:id="searchDrug" layoutX="487.0" layoutY="174.0" onAction="#searchDrugs" prefHeight="38.0" prefWidth="182.0" text="Search" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

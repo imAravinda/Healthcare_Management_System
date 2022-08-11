@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="pane1" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Doctor1Controller">
    <children>
-      <Label layoutX="61.0" layoutY="33.0" text="Doctor " textFill="#474c50">
+      <Label layoutX="58.0" layoutY="14.0" text="Doctor " textFill="#474c50">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
@@ -47,18 +47,18 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <ImageView fx:id="back" fitHeight="18.0" fitWidth="27.0" layoutX="36.0" layoutY="47.0" onMouseClicked="#backword" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="back" fitHeight="18.0" fitWidth="27.0" layoutX="33.0" layoutY="28.0" onMouseClicked="#backword" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/ARROW.png" />
          </image>
       </ImageView>
-      <TextField fx:id="docID1" layoutX="54.0" layoutY="118.0" prefHeight="40.0" prefWidth="586.0" promptText="Search for Patient" />
-      <Label layoutX="360.0" layoutY="175.0" text="Height" textFill="#474c50">
+      <TextField fx:id="patientSearch" layoutX="54.0" layoutY="118.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="586.0" promptText="Search for Patient" />
+      <Label layoutX="360.0" layoutY="175.0" text="Height (cm)" textFill="#474c50">
          <font>
             <Font name="System Bold" />
          </font>
       </Label>
-      <Label layoutX="360.0" layoutY="247.0" text="Weight" textFill="#474c50">
+      <Label layoutX="360.0" layoutY="247.0" text="Weight (kg)" textFill="#474c50">
          <font>
             <Font name="System Bold" />
          </font>
@@ -140,5 +140,10 @@
       <Label fx:id="height" layoutX="360.0" layoutY="203.0" prefHeight="34.0" prefWidth="282.0" />
       <Label fx:id="weight" layoutX="357.0" layoutY="274.0" prefHeight="34.0" prefWidth="282.0" />
       <Label fx:id="DOB" layoutX="357.0" layoutY="346.0" prefHeight="34.0" prefWidth="282.0" />
+      <Label fx:id="docName" layoutX="58.0" layoutY="51.0" prefHeight="24.0" prefWidth="354.0">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -13,7 +13,7 @@ public class Messages extends Application {
 	@Override
 	public void start(Stage Messages) throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("/FXML_Files/Messages.fxml"));
-		Scene scene = new Scene(root,1000,500);
+		Scene scene = new Scene(root,913,562);
 		Messages.setResizable(false);
 		Messages.setScene(scene);
 		Messages.show();

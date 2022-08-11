@@ -5,9 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import com.jfoenix.controls.JFXButton;
 
+import AlertMessage.Message;
 import Data_Base.DataBase_Connection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,11 +75,13 @@ public class Patient1Controll{
 
     @FXML
     private JFXButton logout;
-    
+    private PreparedStatement ps;
+    DataBase_Connection conOBJ = new DataBase_Connection();
+    Connection con;
+    ResultSet resultSet=null;
+    Message msg = new Message();
+    private PreparedStatement psCheckUserExists=null;
     public void LoginDetails(String ID) throws SQLException, ClassNotFoundException {
-    	PreparedStatement ps;
-        DataBase_Connection conOBJ = new DataBase_Connection();
-        Connection con;
         con = conOBJ.getConnection();
         String sql = "SELECT Patient_ID,Name,Email,DOB,Weight,Height,Blood_Group,Gender FROM Patient WHERE Patient_ID =?";
     	ps = con.prepareStatement(sql);
@@ -119,9 +123,24 @@ public class Patient1Controll{
 			e.printStackTrace();
 		}
     }
-
     @FXML
     void Request(ActionEvent event) throws ClassNotFoundException, SQLException {
+    	con = conOBJ.getConnection();
+    	String User_ID = Patient_ID.getText();
+    	String Date = java.time.LocalDate.now().toString();
+    	String Message = EditRequest.getText();
+    	if(Message.trim().isEmpty()) {
+    		msg.setWarningMessage("Please type your request!");
+    	}
+    	else {
+    		String request = "INSERT INTO acc_changes (User_ID,Msg_Content,Date)"+"VALUES(?,?,?)";
+        	ps = con.prepareStatement(request);
+        	ps.setString(1, User_ID);
+        	ps.setString(2, Message);
+        	ps.setString(3, Date);
+        	ps.executeUpdate();
+        	msg.setSuccessMessage("Request Submited!");
+    	}
     	
     }
 

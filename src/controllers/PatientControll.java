@@ -92,7 +92,7 @@ public class PatientControll {
     Message msg = new Message();
     private PreparedStatement psCheckUserExists=null;
     @FXML
-    public String selectGender(ActionEvent event) {
+    public String getGender(ActionEvent event) {
     	if(pMale.isSelected()) {
     		return "Male";
     	}
@@ -104,11 +104,16 @@ public class PatientControll {
     		return null;
     	}
     }
-    
+    void setGender(ToggleGroup Gender) {
+    	this.Gender = Gender;
+    }
     @FXML
-    public String Select(MouseEvent event) {
+    public String getBloodGroup(MouseEvent event) {
     	String BloodGroup = Blood_Group.getSelectionModel().getSelectedItem().toString();
     	return BloodGroup;
+    }
+    void setBloodGroup(ChoiceBox<String> Blood_Group) {
+    	this.Blood_Group = Blood_Group;
     }
     @FXML
     public void initialize() {
@@ -133,9 +138,12 @@ public class PatientControll {
     	
     }
     @FXML
-    String setDate() {
+    String getDate() {
     	LocalDate date = DOB.getValue();
 		return date.toString();
+    }
+    void setDate(DatePicker DOB) {
+    	this.DOB = DOB;
     }
     @FXML
     void RegisterPatient(ActionEvent event) throws ClassNotFoundException, SQLException {
@@ -146,12 +154,12 @@ public class PatientControll {
     	String Patient_ID = userID.getText();
     	String FullName = patientName.getText();
     	String Email = patientEmail.getText();
-    	String Date = setDate();
+    	String Date = getDate();
     	String Password = PWD.getText();
     	String Weight = patientWeight.getText();
     	String Height = patientHeight.getText();
-    	String Blood_Group = Select(null);
-    	String Gender = selectGender(null);
+    	String Blood_Group = getBloodGroup(null);
+    	String Gender = getGender(null);
     	String Other = Others.getText();
     	if(resultSet.isBeforeFirst()){
     		msg.setInformationMessage("This user already exist!");
@@ -181,6 +189,17 @@ public class PatientControll {
             	
             	ps.executeUpdate();
             	msg.setSuccessMessage("Registration Successed!");
+            	userID.setText(null);
+            	patientName.setText(null);
+            	patientEmail.setText(null);
+            	setDate(null);
+            	PWD.setText(null);
+            	patientWeight.setText(null);
+            	patientHeight.setText(null);
+            	setBloodGroup(null);
+            	setGender(null);
+            	Others.setText(null);
+            	confirmPWD.setText(null);
         	}
         	else
         	{

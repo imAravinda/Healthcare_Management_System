@@ -1,6 +1,8 @@
 package Data_Base;
 
-import java.sql. *;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DataBase_Connection extends Config{
 	Connection con;

@@ -1,6 +1,5 @@
 package controllers;
 
-import java.awt.Desktop;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
