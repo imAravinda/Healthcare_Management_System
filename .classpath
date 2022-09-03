@@ -6,22 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/activation-1.1.1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/controlsfx-8.0.1-sources.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/controlsfx-8.40.11.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -46,12 +31,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/javafx-sdk-17.0.0.1/lib/javafx.fxml.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaFX">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Fuel_Management_System/lib/javafx-sdk-17.0.0.1/lib/javafx.fxml.jar">
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Healthcare_System/lib/controlsfx-11.1.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

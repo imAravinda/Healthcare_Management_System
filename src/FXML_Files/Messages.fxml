@@ -38,12 +38,7 @@
           <TableColumn fx:id="Msg" minWidth="0.0" prefWidth="474.39996948242185" text="Description" />
         </columns>
       </TableView>
-      <Button fx:id="Requests" layoutX="67.0" layoutY="432.0" mnemonicParsing="false" onAction="#showRequests" prefHeight="38.0" prefWidth="156.0" text="Show Messages" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="clear" layoutX="260.0" layoutY="432.0" mnemonicParsing="false" onAction="#clearRequests" prefHeight="38.0" prefWidth="156.0" text="Clear" textFill="WHITE">
+      <Button fx:id="clear" layoutX="67.0" layoutY="430.0" mnemonicParsing="false" onAction="#clearRequests" prefHeight="38.0" prefWidth="156.0" text="Clear" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

@@ -6,7 +6,9 @@ module Healthcare_Management_System {
 	requires javafx.base;
 	requires javafx.graphics;
 	requires java.mail;
+	requires mysql.connector.java;
+	requires org.controlsfx.controls;
 	
 	opens application to javafx.graphics, javafx.fxml;
-	opens controllers to javafx.controls, javafx.fxml;
+	opens controllers to javafx.controls, javafx.fxml,org.controlsfx.controls;
 }

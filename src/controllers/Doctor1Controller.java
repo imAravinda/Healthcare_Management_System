@@ -1,31 +1,45 @@
 package controllers;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 import com.jfoenix.controls.JFXButton;
 
 import AlertMessage.Message;
 import Data_Base.DataBase_Connection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-public class Doctor1Controller {
+import Models.Drugs;
+import Models.DrugsTable;
+import Models.ModelTable;
+import Models.PrescriptionTable;
+public class Doctor1Controller implements Initializable{
 	 @FXML
 	    private AnchorPane pane1;
 
@@ -39,13 +53,19 @@ public class Doctor1Controller {
 	    private TextField patientSearch;
 
 	    @FXML
-	    private TableColumn<?, ?> Date;
+	    private TableView<DrugsTable> DrugTable;
+	    
+	    @FXML
+	    private TableView<PrescriptionTable> prescriptionTable;
+	    
+	    @FXML
+	    private TableColumn<PrescriptionTable, String> Date;
 
 	    @FXML
-	    private TableColumn<?, ?> Drugs;
+	    private TableColumn<PrescriptionTable,String> Drugs;
 
 	    @FXML
-	    private TableColumn<?, ?> Diseases;
+	    private TableColumn<PrescriptionTable,String> Diseases;
 
 	    @FXML
 	    private TextField disease;
@@ -63,10 +83,10 @@ public class Doctor1Controller {
 	    private JFXButton clearDrug;
 
 	    @FXML
-	    private TableColumn<?, ?> Drugs1;
+	    private TableColumn<DrugsTable, String> Drugs1;
 
 	    @FXML
-	    private TableColumn<?, ?> Diseases1;
+	    private TableColumn<DrugsTable, String> Diseases1;
 
 	    @FXML
 	    private JFXButton resetPrescription;
@@ -108,6 +128,8 @@ public class Doctor1Controller {
 	    Connection con;
 	    ResultSet resultSet=null;
 	    Message msg = new Message();
+	    DrugsTable drugsTable = null;
+	    
 	    private String UserID;
 	    public void setID(String ID) throws SQLException, ClassNotFoundException {
 	        con = conOBJ.getConnection();
@@ -137,15 +159,49 @@ public class Doctor1Controller {
 			PatientLogin.show();
 	    	
 	    }
-
+	    public String[] retreivedrugs() throws ClassNotFoundException, SQLException {
+	    	con = conOBJ.getConnection();
+	        String sql = "SELECT Drug_Name from drugs;";
+	        ps = con.prepareStatement(sql);
+	        ResultSet rs = ps.executeQuery();
+	        ArrayList<String> drugList = new ArrayList<>();
+	        while (rs.next()) {
+	            Drugs customer = new Drugs(rs.getString("Drug_Name"));
+	            
+	            drugList.add(customer.getName());
+	        }
+	        String[] Drug = new String[drugList.size()];
+	        for(int i=0;i<drugList.size();i++) {
+	        	Drug[i] = drugList.get(i);
+	        }
+	        return Drug;
+	    }
+	    public AutoCompletionBinding<String> AutoCompleteDrugNames;
+	    
+	    @Override
+		public void initialize(URL arg0, ResourceBundle arg1) {
+			try {
+				String[] drugs = retreivedrugs(); 
+				TextFields.bindAutoCompletion(drugSearch,drugs);
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	    
+	    ObservableList<DrugsTable> oblist = FXCollections.observableArrayList();
 	    @FXML
 	    void AddDrugs(ActionEvent event) {
-
+	    	oblist.add(new DrugsTable(drugSearch.getText(),drugDuration.getText()));
+	    	Drugs1.setCellValueFactory(cellData -> cellData.getValue().getDrugs());
+	    	Diseases1.setCellValueFactory(cellData -> cellData.getValue().getDescription());
+	    	DrugTable.setItems(oblist);
 	    }
 
 	    @FXML
 	    void ClearDrugs(ActionEvent event) {
-
+	    	drugSearch.setText(null);
+	    	
 	    }
 
 	    @FXML
@@ -167,23 +223,35 @@ public class Doctor1Controller {
 
 	    @FXML
 	    void RemovePrescription(ActionEvent event) {
-
+	    	
 	    }
 
 	    @FXML
 	    void ResetPrescription(ActionEvent event) {
-
+	    	if(!Drugs1.equals(null) || Diseases1.equals(null)) {
+	    		Drugs1.setCellValueFactory(null);
+	    		Diseases1.setCellValueFactory(null);
+	    	}
+	    	else {
+	    		msg.setInformationMessage("Table is Empty");
+	    	}
 	    }
 
+	    ObservableList<PrescriptionTable> oblist2 = FXCollections.observableArrayList();
 	    @FXML
 	    void SearchPatient(KeyEvent event) throws ClassNotFoundException, SQLException {
 	    	String ID = patientSearch.getText();
 	        con = conOBJ.getConnection();
-	        String sql = "SELECT Patient_ID,Name,DOB,Weight,Height,Blood_Group FROM Patient WHERE Patient_ID =?";
+	        String sql = "SELECT u.Patient_ID,u.Name,u.DOB,u.Weight,u.Height,u.Blood_Group,p.Date,p.Drugs,p.Disease,p.Description FROM Patient as u,Prescription as p WHERE p.Patient_ID = u.Patient_ID and p.Patient_ID = ?";
 	    	ps = con.prepareStatement(sql);
 	    	ps.setString(1, ID);
 	    	ResultSet rs = ps.executeQuery();
-	        if(rs.next()) { 
+	        while(rs.next()) { 
+	        	oblist2.add(new PrescriptionTable(rs.getString("Drugs"),rs.getString("Disease"),rs.getString("Date")));
+	        	Drugs.setCellValueFactory(cellData -> cellData.getValue().getDrugs());
+	        	Diseases.setCellValueFactory(cellData -> cellData.getValue().getDisease());
+	        	Date.setCellValueFactory(cellData -> cellData.getValue().getdate());
+	        	prescriptionTable.setItems(oblist2);
 //	        	System.out.println( "This is rs" + rs.getString(1));
 	        	String PatientID = rs.getString("Patient_ID");
 	            patient_ID.setText(PatientID);
@@ -201,8 +269,22 @@ public class Doctor1Controller {
 	    }
 
 	    @FXML
-	    void SubmitPrescription(ActionEvent event) {
-
+	    void SubmitPrescription(ActionEvent event) throws ClassNotFoundException, SQLException {
+	    	con = conOBJ.getConnection();
+	    	if(!patient_ID.equals(null)) {
+	    		String insert = "INSERT INTO Prescription (Patient_ID,Date,Disease,Drugs,Description)"+"VALUES(?,?,?,?,?)";
+	        	ps = con.prepareStatement(insert);
+	        	ps.setString(1, patient_ID.getText());
+	        	ps.setString(2, java.time.LocalDate.now().toString());
+	        	ps.setString(3, disease.getText());
+	        	ps.setString(4, drugSearch.getText());
+	        	ps.setString(5, drugDuration.getText());
+	        	ps.executeUpdate();
+	        	msg.setSuccessMessage("Prescription Submited!");
+	    	}
+	    	else {
+	    		msg.setWarningMessage("Please Select the patient!");
+	    	}
 	    }
 
 	    @FXML

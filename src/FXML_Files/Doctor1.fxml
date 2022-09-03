@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane1" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Doctor1Controller">
+<AnchorPane fx:id="pane1" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Doctor1Controller">
    <children>
       <Label layoutX="58.0" layoutY="14.0" text="Doctor " textFill="#474c50">
          <font>
@@ -68,7 +68,7 @@
             <Font name="System Bold" />
          </font>
       </Label>
-      <TableView editable="true" layoutX="54.0" layoutY="441.0" prefHeight="143.0" prefWidth="586.0">
+      <TableView fx:id="prescriptionTable" editable="true" layoutX="54.0" layoutY="441.0" prefHeight="143.0" prefWidth="586.0">
         <columns>
           <TableColumn fx:id="Date" prefWidth="103.99996566772461" text="Date" />
           <TableColumn fx:id="Drugs" prefWidth="158.40000915527344" text="Drugs" />
@@ -108,7 +108,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
-      <TableView editable="true" layoutX="736.0" layoutY="342.0" prefHeight="143.0" prefWidth="503.0">
+      <TableView fx:id="DrugTable" editable="true" layoutX="736.0" layoutY="342.0" prefHeight="143.0" prefWidth="503.0">
          <columns>
             <TableColumn fx:id="Drugs1" prefWidth="158.40000915527344" text="Drugs" />
             <TableColumn fx:id="Diseases1" prefWidth="338.4000244140625" text="Description" />

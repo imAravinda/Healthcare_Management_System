@@ -43,7 +43,7 @@ public class MessagesControll implements Initializable{
     private ImageView back;
 
     @FXML
-    private TableColumn<ModelTable, Date> date;
+    private TableColumn<ModelTable, String> date;
 
     @FXML
     private TableColumn<ModelTable, String> userID;
@@ -51,13 +51,10 @@ public class MessagesControll implements Initializable{
     @FXML
     private TableColumn<ModelTable, String> Msg;
 
-    @FXML
-    private Button Requests;
 
     @FXML
     private Button clear;
 
-    
     private PreparedStatement ps;
     Connection con;
     DataBase_Connection conOBJ = new DataBase_Connection();
@@ -83,11 +80,16 @@ public class MessagesControll implements Initializable{
 
     @FXML
     void clearRequests(ActionEvent event) {
-    	
+    	if(!userID.equals(null) && !Msg.equals(null)) {
+    		userID.setCellValueFactory(null);;
+        	Msg.setCellFactory(null);
+        	
+    	}
+    	else {
+    		msg.setInformationMessage("Table is Empty");
+    	}
     }
-
-    @FXML
-    void showRequests(ActionEvent event) throws ClassNotFoundException, SQLException {
+    void showRequests() throws ClassNotFoundException, SQLException {
     	oblist.clear();
     	con = conOBJ.getConnection();
     	String sql = "SELECT * FROM acc_changes";
@@ -97,7 +99,7 @@ public class MessagesControll implements Initializable{
             oblist.add(new ModelTable(
             		rs.getString("User_ID"),
             		rs.getString("MSG_Content"), 
-            		rs.getDate("Date")));
+            		rs.getString("Date")));
             RequestTable.setItems(oblist);
         }
     	
@@ -119,11 +121,12 @@ public class MessagesControll implements Initializable{
 	}
     private void loadData() throws ClassNotFoundException, SQLException {
     	
+    	
+    	showRequests();
     	con = conOBJ.getConnection();
-    	showRequests(null);
-    	userID.setCellValueFactory(new PropertyValueFactory<>("userID"));
-    	Msg.setCellValueFactory(new PropertyValueFactory<>("MsgContent"));
-    	date.setCellValueFactory(new PropertyValueFactory<>("date"));
+    	userID.setCellValueFactory(cellData -> cellData.getValue().getID());
+    	Msg.setCellValueFactory(cellData -> cellData.getValue().getMsg());
+    	date.setCellValueFactory(cellData -> cellData.getValue().getdate());
     }
 
 }
