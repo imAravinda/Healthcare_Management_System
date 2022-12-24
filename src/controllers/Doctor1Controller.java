@@ -31,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -124,9 +125,9 @@ public class Doctor1Controller implements Initializable{
 	    private Stage stage;
 	    private Parent root;
 	    private PreparedStatement ps;
+	    private PreparedStatement ps1;
 	    DataBase_Connection conOBJ = new DataBase_Connection();
 	    Connection con;
-	    ResultSet resultSet=null;
 	    Message msg = new Message();
 	    DrugsTable drugsTable = null;
 	    
@@ -240,53 +241,81 @@ public class Doctor1Controller implements Initializable{
 	    ObservableList<PrescriptionTable> oblist2 = FXCollections.observableArrayList();
 	    @FXML
 	    void SearchPatient(KeyEvent event) throws ClassNotFoundException, SQLException {
-	    	String ID = patientSearch.getText();
-	        con = conOBJ.getConnection();
-	        String sql = "SELECT u.Patient_ID,u.Name,u.DOB,u.Weight,u.Height,u.Blood_Group,p.Date,p.Drugs,p.Disease,p.Description FROM Patient as u,Prescription as p WHERE p.Patient_ID = u.Patient_ID and p.Patient_ID = ?";
-	    	ps = con.prepareStatement(sql);
-	    	ps.setString(1, ID);
-	    	ResultSet rs = ps.executeQuery();
-	        while(rs.next()) { 
-	        	oblist2.add(new PrescriptionTable(rs.getString("Drugs"),rs.getString("Disease"),rs.getString("Date")));
-	        	Drugs.setCellValueFactory(cellData -> cellData.getValue().getDrugs());
-	        	Diseases.setCellValueFactory(cellData -> cellData.getValue().getDisease());
-	        	Date.setCellValueFactory(cellData -> cellData.getValue().getdate());
-	        	prescriptionTable.setItems(oblist2);
-//	        	System.out.println( "This is rs" + rs.getString(1));
-	        	String PatientID = rs.getString("Patient_ID");
-	            patient_ID.setText(PatientID);
-	            String FullName = rs.getString("Name");
-	            Name.setText(FullName);
-	            String Birth = rs.getString("DOB");
-	            DOB.setText(Birth);
-	            String Weight = rs.getString("Weight");
-	            weight.setText(Weight);
-	            String Height = rs.getString("Height");
-	            height.setText(Height);
-	            String BloodGroup = rs.getString("Blood_Group");
-	            Blood_Group.setText(BloodGroup);
-	        }
+	    	if(event.getCode().equals(KeyCode.ENTER)) {
+		    	String ID = patientSearch.getText();
+		        con = conOBJ.getConnection();
+		        String sql = "SELECT u.Patient_ID,u.Name,u.DOB,u.Weight,u.Height,u.Blood_Group FROM Patient as u WHERE U.Patient_ID =  ?";
+		        String sql1 = "SELECT Date,Drugs,Disease FROM prescription WHERE Patient_ID = ?";
+		        
+		        ps1 = con.prepareStatement(sql1);
+		    	ps = con.prepareStatement(sql);
+		    	ps1.setString(1, ID);
+		    	ps.setString(1, ID);
+		    	ResultSet rs = ps.executeQuery();
+		    	ResultSet rs1 = ps1.executeQuery();
+		        if(rs.next() ) { 
+		        	if(rs1.next()) {
+		        		oblist2.add(
+		        				new PrescriptionTable(
+		        						rs1.getString("Date"),
+		        						rs1.getString("Drugs"),
+		        						rs1.getString("Disease")
+		        				)
+		        			);
+			        	Drugs.setCellValueFactory(cellData -> cellData.getValue().getDrugs());
+			        	Diseases.setCellValueFactory(cellData -> cellData.getValue().getDisease());
+			        	Date.setCellValueFactory(cellData -> cellData.getValue().getdate());
+			        	prescriptionTable.setItems(oblist2);
+		        	}
+		        	
+		        	String PatientID = rs.getString("Patient_ID");
+		            patient_ID.setText(PatientID);
+		            String FullName = rs.getString("Name");
+		            Name.setText(FullName);
+		            String Birth = rs.getString("DOB");
+		            DOB.setText(Birth);
+		            String Weight = rs.getString("Weight");
+		            weight.setText(Weight);
+		            String Height = rs.getString("Height");
+		            height.setText(Height);
+		            String BloodGroup = rs.getString("Blood_Group");
+		            Blood_Group.setText(BloodGroup);
+		        }
+		        else {
+	            	msg.setInformationMessage("Patient doesn't exits!");
+	            }	
+	    	}
 	    }
 
 	    @FXML
 	    void SubmitPrescription(ActionEvent event) throws ClassNotFoundException, SQLException {
 	    	con = conOBJ.getConnection();
 	    	if(!patient_ID.equals(null)) {
-	    		String insert = "INSERT INTO Prescription (Patient_ID,Date,Disease,Drugs,Description)"+"VALUES(?,?,?,?,?)";
+	    		String insert = "INSERT INTO Prescription (Patient_ID,Patient_Name,Date,Disease,Drugs,Description)"+"VALUES(?,?,?,?,?,?)";
 	        	ps = con.prepareStatement(insert);
 	        	ps.setString(1, patient_ID.getText());
-	        	ps.setString(2, java.time.LocalDate.now().toString());
-	        	ps.setString(3, disease.getText());
-	        	ps.setString(4, drugSearch.getText());
-	        	ps.setString(5, drugDuration.getText());
+	        	ps.setString(2, Name.getText());
+	        	ps.setString(3, java.time.LocalDate.now().toString());
+	        	ps.setString(4, disease.getText());
+	        	ps.setString(5, drugSearch.getText());
+	        	ps.setString(6, drugDuration.getText());
 	        	ps.executeUpdate();
+	        	String copy = "INSERT INTO PrescriptionCopy (Patient_ID,Patient_Name,Date,Disease,Drugs,Description)"+"VALUES(?,?,?,?,?,?)";
+	        	PreparedStatement ps2 = con.prepareStatement(copy);
+	        	ps2.setString(1, patient_ID.getText());
+	        	ps2.setString(2, Name.getText());
+	        	ps2.setString(3, java.time.LocalDate.now().toString());
+	        	ps2.setString(4, disease.getText());
+	        	ps2.setString(5, drugSearch.getText());
+	        	ps2.setString(6, drugDuration.getText());
+	        	ps2.executeUpdate();
 	        	msg.setSuccessMessage("Prescription Submited!");
 	    	}
 	    	else {
 	    		msg.setWarningMessage("Please Select the patient!");
 	    	}
+	    	
 	    }
-
 	    @FXML
 	    void backword(MouseEvent event) throws ClassNotFoundException, SQLException {
 	    	back.getScene().getWindow().hide();

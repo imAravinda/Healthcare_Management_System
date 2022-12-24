@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane1" prefHeight="790.0" prefWidth="850.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RecordSearchControll">
+<AnchorPane fx:id="pane1" prefHeight="790.0" prefWidth="850.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RecordSearchControll">
    <children>
       <Label layoutX="60.0" layoutY="29.0" text="Search for Records" textFill="#474c50">
          <font>
@@ -42,7 +42,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <TableView layoutX="58.0" layoutY="241.0" prefHeight="438.0" prefWidth="729.0">
+      <TableView fx:id="RecordSearchTable" layoutX="58.0" layoutY="241.0" prefHeight="438.0" prefWidth="729.0">
         <columns>
           <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
           <TableColumn fx:id="patientID" prefWidth="113.60003662109375" text="Patient ID" />

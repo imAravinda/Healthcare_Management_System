@@ -223,6 +223,7 @@ public class LoginControll {
             	}
         		
         	}
+        	
     	}
     	else if(ID.matches("(AD)\\/[0-9]{6}")) {
     		String Admin = "SELECT *FROM admin where Admin_ID=? and Password=?";

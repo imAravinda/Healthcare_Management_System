@@ -78,7 +78,7 @@ public class PatientSearchControll {
     
     private Stage stage;
     private Parent root;
-    private PreparedStatement ps;
+    private PreparedStatement ps,ps1,ps2;
     DataBase_Connection conOBJ = new DataBase_Connection();
     Connection con;
     ResultSet resultSet=null;
@@ -118,10 +118,16 @@ public class PatientSearchControll {
     @FXML
     void RemovePatient(ActionEvent event) throws ClassNotFoundException, SQLException {
     	con = conOBJ.getConnection();
+    	String sql = "SET foreign_key_checks = 0";
     	String delete = "DELETE from Patient WHERE Patient_ID = ?";
+    	String sql1 = "SET foreign_key_checks = 1";
+    	ps1 = con.prepareStatement(sql);
     	ps = con.prepareStatement(delete);
+    	ps2 = con.prepareStatement(sql1);
     	ps.setString(1, userID.getText());
+    	ResultSet rs1 = ps1.executeQuery();
     	int rs = ps.executeUpdate();
+    	ResultSet rs2 = ps2.executeQuery();
     	msg.setSuccessMessage("Patient is Removed!");
 //    	userID.setText(null);
 //        patientName.setText(null);        

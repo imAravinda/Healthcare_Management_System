@@ -2,14 +2,15 @@ package Models;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class PrescriptionTable {
+public class PrescriptionTable{
 	
 	private SimpleStringProperty date;
 	private SimpleStringProperty Drugs;
 	private SimpleStringProperty Disease;
-	public PrescriptionTable(String Drugs,String Disease,String date) {
+	public PrescriptionTable(String date,String Drugs,String Disease) {
 		this.Drugs= new SimpleStringProperty(Drugs);
-		this.Disease =new SimpleStringProperty(Disease);;
+		this.Disease =new SimpleStringProperty(Disease);
+		this.date = new SimpleStringProperty(date);
 	}
 	public void setDrugs(String Drugs) {
 		this.Drugs.set(Drugs);

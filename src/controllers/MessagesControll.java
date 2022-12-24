@@ -79,11 +79,15 @@ public class MessagesControll implements Initializable{
     }
 
     @FXML
-    void clearRequests(ActionEvent event) {
+    void clearRequests(ActionEvent event) throws SQLException, ClassNotFoundException {
     	if(!userID.equals(null) && !Msg.equals(null)) {
     		userID.setCellValueFactory(null);;
         	Msg.setCellFactory(null);
-        	
+        	con = conOBJ.getConnection();
+        	String delete = "DELETE from acc_changes WHERE Patient_ID = ?";
+        	ps = con.prepareStatement(delete);
+        	ps.setString(1, userID.getText());
+        	int rs = ps.executeUpdate();
     	}
     	else {
     		msg.setInformationMessage("Table is Empty");

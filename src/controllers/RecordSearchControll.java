@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -36,6 +37,9 @@ public class RecordSearchControll {
 	    @FXML
 	    private JFXButton searchRecords;
 
+	    @FXML
+	    private TableView<?> RecordSearchTable;
+	    
 	    @FXML
 	    private TableColumn<?, ?> date;
 
