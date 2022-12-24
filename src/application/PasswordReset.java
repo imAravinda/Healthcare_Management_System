@@ -13,7 +13,7 @@ public class PasswordReset extends Application {
 	@Override
 	public void start(Stage frogotpassword) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/FXML_Files/PasswordReset.fxml"));
-		Scene scene = new Scene(root,525,575);
+		Scene scene = new Scene(root,837,525);
 		frogotpassword.setResizable(false);
 		frogotpassword.setScene(scene);
 		frogotpassword.show();

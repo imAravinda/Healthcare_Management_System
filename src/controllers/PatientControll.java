@@ -92,7 +92,7 @@ public class PatientControll {
     Message msg = new Message();
     private PreparedStatement psCheckUserExists=null;
     @FXML
-    public String selectGender(ActionEvent event) {
+    public String getGender(ActionEvent event) {
     	if(pMale.isSelected()) {
     		return "Male";
     	}
@@ -104,11 +104,16 @@ public class PatientControll {
     		return null;
     	}
     }
-    
+    void setGender(ToggleGroup Gender) {
+    	this.Gender = Gender;
+    }
     @FXML
-    public String Select(MouseEvent event) {
+    public String getBloodGroup(MouseEvent event) {
     	String BloodGroup = Blood_Group.getSelectionModel().getSelectedItem().toString();
     	return BloodGroup;
+    }
+    void setBloodGroup(ChoiceBox<String> Blood_Group) {
+    	this.Blood_Group = Blood_Group;
     }
     @FXML
     public void initialize() {
@@ -133,9 +138,12 @@ public class PatientControll {
     	
     }
     @FXML
-    String setDate() {
+    String getDate() {
     	LocalDate date = DOB.getValue();
 		return date.toString();
+    }
+    void setDate(DatePicker DOB) {
+    	this.DOB = DOB;
     }
     @FXML
     void RegisterPatient(ActionEvent event) throws ClassNotFoundException, SQLException {
@@ -146,20 +154,26 @@ public class PatientControll {
     	String Patient_ID = userID.getText();
     	String FullName = patientName.getText();
     	String Email = patientEmail.getText();
-    	String Date = setDate();
+    	String Date = getDate();
     	String Password = PWD.getText();
     	String Weight = patientWeight.getText();
     	String Height = patientHeight.getText();
-    	String Blood_Group = Select(null);
-    	String Gender = selectGender(null);
+    	String Blood_Group = getBloodGroup(null);
+    	String Gender = getGender(null);
     	String Other = Others.getText();
     	if(resultSet.isBeforeFirst()){
-    		msg.setMessage("This user already exist!");
+    		msg.setInformationMessage("This user already exist!");
     	}
     	else {
     		if(!Password.equals(confirmPWD.getText())) {
     			msg.setMessage("Password dosen't match!");
-        	}else if(!Patient_ID.trim().isEmpty() && !FullName.trim().isEmpty() && !Email.trim().isEmpty() && !Date.trim().isEmpty() && !Weight.trim().isEmpty() && !Height.trim().isEmpty() && !Blood_Group.trim().isEmpty() && !Gender.trim().isEmpty()){
+        	}else if(!Patient_ID.matches("([A-Z]||[a-z]){2}\\/[2][0-9]{3}\\/[1][0-9]{4}")) {
+    			msg.setMessage("Invalid User ID type!");
+    		}
+        	else if(Password.length() != 8 ) {
+    			msg.setInformationMessage("Password must contain 8 characters!");
+    		}
+    		else if(!Patient_ID.trim().isEmpty() && !FullName.trim().isEmpty() && !Email.trim().isEmpty() && !Date.trim().isEmpty() && !Weight.trim().isEmpty() && !Height.trim().isEmpty() && !Blood_Group.trim().isEmpty() && !Gender.trim().isEmpty()){
         		String insert = "INSERT INTO Patient (Patient_ID,Name,Email,Password,DOB,Weight,Height,Blood_Group,Gender,Others)"+"VALUES(?,?,?,?,?,?,?,?,?,?)";
             	ps = con.prepareStatement(insert);
             	ps.setString(1, Patient_ID);
@@ -174,11 +188,22 @@ public class PatientControll {
             	ps.setString(10, Other);
             	
             	ps.executeUpdate();
-            	msg.setMessage("Registration Successed!");
+            	msg.setSuccessMessage("Registration Successed!");
+            	userID.setText(null);
+            	patientName.setText(null);
+            	patientEmail.setText(null);
+            	setDate(null);
+            	PWD.setText(null);
+            	patientWeight.setText(null);
+            	patientHeight.setText(null);
+            	setBloodGroup(null);
+            	setGender(null);
+            	Others.setText(null);
+            	confirmPWD.setText(null);
         	}
         	else
         	{
-        		msg.setMessage("Please fill all required fields!");
+        		msg.setWarningMessage("Please fill all required fields!");
         	}
     	}
     	

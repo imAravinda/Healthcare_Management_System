@@ -1,9 +1,17 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.jfoenix.controls.JFXButton;
 
+import AlertMessage.Message;
+import Data_Base.DataBase_Connection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,11 +80,54 @@ public class DrugSearchControll {
     @FXML
     private TextField drugQuantity;
 
+    private PreparedStatement ps;
+    Connection con;
+    DataBase_Connection conOBJ = new DataBase_Connection();
+    ResultSet resultSet=null;
+    Message msg = new Message();
+    private PreparedStatement psCheckUserExists=null;
     @FXML
-    void AddDrugDetails(ActionEvent event) {
+    void AddDrugDetails(ActionEvent event) throws ClassNotFoundException, SQLException {
+    	con = conOBJ.getConnection();
+    	psCheckUserExists=con.prepareStatement("SELECT * FROM Drugs WHERE Drug_Name=? AND Brand = ?");
+        psCheckUserExists.setString(1,drugName.getText());
+        psCheckUserExists.setString(2,brandName.getText());
+        resultSet= psCheckUserExists.executeQuery();
+    	String DrugName = drugName.getText();
+    	String Brand = brandName.getText();
+    	String Supplier = supplierName.getText();
+    	int Quantity = Integer.parseInt(drugQuantity.getText());
+    	if(resultSet.isBeforeFirst()) {
+    		msg.setInformationMessage("This Drug already exist!");
+    	}else {
+    			String insert = "INSERT INTO Drugs (Brand,Supplier,Drug_Name,Quantity) " + "VALUES (?,?,?,?)";
+	    		ps = con.prepareStatement(insert);
+		    	ps.setString(1, Brand);
+		    	ps.setString(2, Supplier);
+		    	ps.setInt(4, Quantity);
+		    	ps.setString(3, DrugName);
+		    	ps.executeUpdate();
+		    	msg.setSuccessMessage("Drug is Added!");
+    		}
+    }
+    @FXML
+    void SearchByBrand(KeyEvent event) {
 
     }
 
+    @FXML
+    void SearchByDrugName(KeyEvent event) {
+
+    }
+
+    @FXML
+    void searchBySupplier(KeyEvent event) {
+
+    }
+    @FXML
+    void searchDrugs(ActionEvent event) {
+
+    }
     @FXML
     void Backword(MouseEvent event) {
     	back.getScene().getWindow().hide();
@@ -98,18 +149,18 @@ public class DrugSearchControll {
 
     }
 
-    @FXML
-    void EditPatientInfo(ActionEvent event) {
-
-    }
+//    @FXML
+//    void EditPatientInfo(ActionEvent event) {
+//
+//    }
 
     @FXML
     void RemoveExistingDrug(ActionEvent event) {
 
     }
 
-    @FXML
-    void SearchPatient(KeyEvent event) {
-
-    }
+//    @FXML
+//    void SearchPatient(KeyEvent event) {
+//
+//    }
 }

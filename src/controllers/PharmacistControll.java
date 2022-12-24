@@ -1,6 +1,5 @@
 package controllers;
 
-import java.awt.Desktop;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -123,28 +122,15 @@ public class PharmacistControll {
 				e.printStackTrace();
 			}
 	    }
-	    
+	    File file;
 	    @FXML
 	    void uploadFile() throws IOException {
 	    	FileChooser FC = new FileChooser();
 	    	FC.setTitle("Open File Dialog");
 	    	FC.getExtensionFilters().add(new ExtensionFilter("PDF Files","*.pdf"));
 	    	Stage stage = (Stage)pane1.getScene().getWindow();
-	    	File file = FC.showOpenDialog(stage);
-	    	fileupload.setText(file.getAbsolutePath().toString());
-			try {
-				File pdf =  new File(file.getAbsolutePath());
-				FileInputStream FIS = new FileInputStream(pdf); 
-				ByteArrayOutputStream BOS = new ByteArrayOutputStream();
-				byte[] PDF = new byte[1048576];
-				for(int readNum ; (readNum = FIS.read(PDF)) != 1;) {
-					BOS.write(PDF, 0 , readNum);
-				}
-				LicensePDF = BOS.toByteArray();
-				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}	
+	    	file = FC.showOpenDialog(stage);
+	    	fileupload.setText(file.getAbsolutePath().toString());	
 	    }
 	    
 	    @FXML
@@ -159,12 +145,20 @@ public class PharmacistControll {
 	    	String Birth = setDate();
 	    	String Gender = selectGender(event);
 	    	String Password = PWD.getText();
+	    	File pdf =  new File(file.getAbsolutePath());
+			FileInputStream FIS = new FileInputStream(pdf); 
 	    	if(resultSet.isBeforeFirst()) {
-	    		msg.setMessage("This user already exist!");
+	    		msg.setInformationMessage("This user already exist!");
 	    	}else {
 	    		if(!Password.equals(confirmPWD.getText())) {
 	    			msg.setMessage("Password dosen't match!");
-	    		}else if(!Phar_ID.trim().isEmpty() && !Name.trim().isEmpty() && !Email.trim().isEmpty() && !Birth.trim().isEmpty() && !Gender.trim().isEmpty()) {
+	    		}else if(!Phar_ID.matches("(PH)\\/[0-9]{7}")) {
+	    			msg.setMessage("Invalid User ID type!");
+	    		}
+	    		else if(Password.length() != 8 ) {
+	    			msg.setWarningMessage("Password must contain 8 characters!");
+	    		}
+	    		else if(!Phar_ID.trim().isEmpty() && !Name.trim().isEmpty() && !Email.trim().isEmpty() && !Birth.trim().isEmpty() && !Gender.trim().isEmpty()) {
 	    			String insert = "INSERT INTO pharmacist (Phar_ID,Name,Email,DOB,Gender,License,Password) " + "VALUES (?,?,?,?,?,?,?)";
 		    		ps = con.prepareStatement(insert);
 			    	ps.setString(1, Phar_ID);
@@ -172,13 +166,13 @@ public class PharmacistControll {
 			    	ps.setString(3, Email);
 			    	ps.setString(4, Birth);
 			    	ps.setString(5, Gender);
-			    	ps.setBytes(6, LicensePDF);;
+			    	ps.setBinaryStream(6,FIS,(int)(pdf.length()));
 			    	ps.setString(7, Password);// byte[] array
 			    	ps.executeUpdate();
-			    	msg.setMessage("Registration Successed!");
+			    	msg.setSuccessMessage("Registration Successed!");
 	    		}
 	    		else {
-	    			msg.setMessage("Please fill all required fields!");
+	    			msg.setWarningMessage("Please fill all required fields!");
 	    		}
 	    	}	
 	    }

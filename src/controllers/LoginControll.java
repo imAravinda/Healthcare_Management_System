@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,9 +23,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -41,7 +44,7 @@ public class LoginControll {
     private Label logLable;
 
     @FXML
-    protected TextField user;
+    public TextField user;
 
     @FXML
     private PasswordField PWD;
@@ -61,8 +64,6 @@ public class LoginControll {
     DataBase_Connection conOBJ = new DataBase_Connection();
     Connection con;
     Message msg = new Message();
-    ResultSet resultSet=null;
-    private PreparedStatement psCheckUserExists=null;
     @FXML
     void CreateAcc(MouseEvent event) {
     	newAcc.getScene().getWindow().hide();
@@ -96,109 +97,175 @@ public class LoginControll {
 			e.printStackTrace();
 		}
     }
-    String ID;
+    public String ID;
+    public String getID() {
+    	return user.getText();
+    }
     @FXML
     void Login(ActionEvent event) throws ClassNotFoundException, SQLException, IOException  {
     	ID=user.getText();
     	con = conOBJ.getConnection();
     	
-    	psCheckUserExists=con.prepareStatement("SELECT * FROM patient WHERE Patient_ID=?");
-        psCheckUserExists.setString(1,user.getText());
-        resultSet= psCheckUserExists.executeQuery();
-        
     	//Patient login data retrieve
-    	
-    	String patient = "SELECT *FROM Patient where Patient_ID=? and Password=?";
-    	
-    	ps = con.prepareStatement(patient);
-    	
-    	ps.setString(1, ID);
-    	ps.setString(2, PWD.getText());
-    	
-    	ResultSet rs = ps.executeQuery();
-    	
-    	//Doctor login data retrieve
-    	
-    	String doc = "SELECT *FROM Doctor where doc_id=? and Password=?";
-    	
-    	ps = con.prepareStatement(doc);
-    	
-    	ps.setString(1, ID);
-    	ps.setString(2, PWD.getText());
-    	
-    	ResultSet rs1 = ps.executeQuery();
-    	
-    	//Pharmacist login data retrieve
-    	
-    	String pharmacist = "SELECT *FROM Doctor where doc_id=? and Password=?";
-    	
-    	ps = con.prepareStatement(pharmacist);
-    	
-    	ps.setString(1, ID);
-    	ps.setString(2, PWD.getText());
-    	
-    	ResultSet rs2 = ps.executeQuery();
-    	
-    	//Patient Login
-    	if(!resultSet.isBeforeFirst()) {
-    		msg.setMessage("This user dosen't exist!");
-    	}
-    	else {
-    		if(rs.next()) {
-        		btn.getScene().getWindow().hide();
-            	Stage PatientLogin = new Stage();
-            	
-            	FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML_Files/Patient1.fxml"));
-            	root = loader.load();
-            	Patient1Controll LC = loader.getController();
-            	LC.LoginDetails(ID);
-    			stage  = (Stage)((Node)event.getSource()).getScene().getWindow();
-    			Scene scene = new Scene(root);
-    			PatientLogin.setResizable(false);
-    			PatientLogin.setScene(scene);
-    			PatientLogin.show();
-    			
-    			LC.LoginDetails(ID);
+    	if(ID.matches("([A-Z]||[a-z]){2}\\/[2][0-9]{3}\\/[1][0-9]{4}")) {
+    		String patient = "SELECT *FROM Patient where Patient_ID=? and Password=?";
+        	ps = con.prepareStatement(patient);
+        	
+        	ps.setString(1, ID);
+        	ps.setString(2, PWD.getText());
+        	
+        	ResultSet rs = ps.executeQuery();
+        	PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM patient WHERE Patient_ID=?");
+            psCheckUserExists.setString(1,user.getText());
+            ResultSet resultSet= psCheckUserExists.executeQuery();
+            PreparedStatement psCheckPassword=con.prepareStatement("SELECT * FROM patient WHERE Password=?");
+            psCheckPassword.setString(1,PWD.getText());
+            ResultSet resultSet1= psCheckPassword.executeQuery();
+        	if(!resultSet1.isBeforeFirst()) {
+        		msg.setMessage("Invalid Password!");
         	}
-    		else if(rs1.next()) {
-        		btn.getScene().getWindow().hide();
-            	Stage DoctorLogin = new Stage();
-            	
-            	try {
-        			Parent root = FXMLLoader.load(getClass().getResource("/FXML_Files/Doctor1.fxml"));
+        	else if(!resultSet.isBeforeFirst()) {
+        		msg.setWarningMessage("This user dosen't exist!");
+        	}
+        	else {
+        		if(rs.next()) {
+        			btn.getScene().getWindow().hide();
+                	Stage PatientLogin = new Stage();
+                	
+                	FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML_Files/Patient1.fxml"));
+                	root = loader.load();
+                	Patient1Controll LC = loader.getController();
+                	LC.LoginDetails(ID);
+        			stage  = (Stage)((Node)event.getSource()).getScene().getWindow();
+        			Scene scene = new Scene(root);
+        			PatientLogin.setResizable(false);
+        			PatientLogin.setScene(scene);
+        			PatientLogin.show();
+            	}
+    		}
+    	}
+    	else if(ID.matches("(DC)\\/[0-9]{7}")) {
+    		String doc = "SELECT *FROM Doctor where doc_id=? and Password=?";
+        	
+        	ps = con.prepareStatement(doc);
+        	
+        	ps.setString(1, ID);
+        	ps.setString(2, PWD.getText());
+        	
+        	ResultSet rs1 = ps.executeQuery();
+        	PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM doctor WHERE doc_id=?");
+            psCheckUserExists.setString(1,user.getText());
+            ResultSet resultSet= psCheckUserExists.executeQuery();
+            PreparedStatement psCheckPassword=con.prepareStatement("SELECT * FROM doctor WHERE Password=?");
+            psCheckPassword.setString(1,PWD.getText());
+            ResultSet resultSet1= psCheckPassword.executeQuery();
+        	if(!resultSet1.isBeforeFirst()) {
+        		msg.setMessage("Invalid Password!");
+        	}
+        	else if(!resultSet.isBeforeFirst()) {
+        		msg.setWarningMessage("This user dosen't exist!");
+        	}
+    		else {
+    			if(rs1.next()) {
+    				btn.getScene().getWindow().hide();
+                	Stage DoctorLogin = new Stage();
+                	
+                	FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML_Files/Doctor1.fxml"));
+                	root = loader.load();
+                	Doctor1Controller LC = loader.getController();
+                	LC.setID(ID);
+        			stage  = (Stage)((Node)event.getSource()).getScene().getWindow();
         			Scene scene = new Scene(root);
         			DoctorLogin.setResizable(false);
         			DoctorLogin.setScene(scene);
         			DoctorLogin.show();
-        		} catch (IOException e) {
-        			e.printStackTrace();
-        		}
+            		
+            	}
+    		}
+        		
+    	}
+    	else if(ID.matches("(PH)\\/[0-9]{7}")) {
+    		String pharmacist = "SELECT *FROM pharmacist where Phar_ID=? and Password=?";
+        	
+        	ps = con.prepareStatement(pharmacist);
+        	
+        	ps.setString(1, ID);
+        	ps.setString(2, PWD.getText());
+        	
+        	ResultSet rs2 = ps.executeQuery();
+        	PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM pharmacist WHERE Phar_ID=?");
+            psCheckUserExists.setString(1,user.getText());
+            ResultSet resultSet= psCheckUserExists.executeQuery();
+            PreparedStatement psCheckPassword=con.prepareStatement("SELECT * FROM pharmacist WHERE Password=?");
+            psCheckPassword.setString(1,PWD.getText());
+            ResultSet resultSet1= psCheckPassword.executeQuery();
+        	if(!resultSet1.isBeforeFirst()) {
+        		msg.setMessage("Invalid Password!");
         	}
-        	
-        	//Pharmacist Login
-        	
-        	else if(rs2.next()) {
-        		btn.getScene().getWindow().hide();
-            	Stage PharmacistLogin = new Stage();
-            	
-            	try {
-        			Parent root = FXMLLoader.load(getClass().getResource("/FXML_Files/Pharmacist1.fxml"));
+        	else if(!resultSet.isBeforeFirst()) {
+        		msg.setWarningMessage("This user dosen't exist!");
+        	}
+    		else {
+    			if(rs2.next()) {
+            		
+    				btn.getScene().getWindow().hide();
+                	Stage PharmacistLogin = new Stage();
+                	
+                	FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML_Files/Pharmacist1.fxml"));
+                	root = loader.load();
+                	Pharmcist1Controll LC = loader.getController();
+                	LC.setID(ID);
+        			stage  = (Stage)((Node)event.getSource()).getScene().getWindow();
         			Scene scene = new Scene(root);
         			PharmacistLogin.setResizable(false);
         			PharmacistLogin.setScene(scene);
         			PharmacistLogin.show();
-        		} catch (IOException e) {
-        			e.printStackTrace();
-        		}
+            	}
+        		
         	}
-        	else {
-        		msg.setMessage("Login Failed!");
+        	
+    	}
+    	else if(ID.matches("(AD)\\/[0-9]{6}")) {
+    		String Admin = "SELECT *FROM admin where Admin_ID=? and Password=?";
+        	
+        	ps = con.prepareStatement(Admin);
+        	
+        	ps.setString(1, ID);
+        	ps.setString(2, PWD.getText());
+        	
+        	ResultSet rs3 = ps.executeQuery();
+        	PreparedStatement psCheckUserExists=con.prepareStatement("SELECT * FROM admin WHERE Admin_ID=?");
+            psCheckUserExists.setString(1,user.getText());
+            ResultSet resultSet= psCheckUserExists.executeQuery();
+            PreparedStatement psCheckPassword=con.prepareStatement("SELECT * FROM admin WHERE Password=?");
+            psCheckPassword.setString(1,PWD.getText());
+            ResultSet resultSet1= psCheckPassword.executeQuery();
+        	if(!resultSet1.isBeforeFirst()) {
+        		msg.setMessage("Invalid Password!");
+        	}
+        	else if(!resultSet.isBeforeFirst()) {
+        		msg.setWarningMessage("This user dosen't exist!");
+        	}
+    		else {
+    			if(rs3.next()) {
+            		
+    				btn.getScene().getWindow().hide();
+                	Stage AdminLogin = new Stage();
+                	
+                	FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML_Files/Admin.fxml"));
+                	root = loader.load();
+        			stage  = (Stage)((Node)event.getSource()).getScene().getWindow();
+        			Scene scene = new Scene(root);
+        			AdminLogin.setResizable(false);
+        			AdminLogin.setScene(scene);
+        			AdminLogin.show();
+            	}
+        		
         	}
     	}
-    	
-    	//Doctor Login
-    	
-    	
+    	else {
+    		msg.setMessage("Invalid User ID !");
+    	}
     	
     }
 
