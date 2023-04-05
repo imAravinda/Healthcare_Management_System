@@ -12,14 +12,22 @@ import com.jfoenix.controls.JFXButton;
 
 import AlertMessage.Message;
 import Data_Base.DataBase_Connection;
+import Models.Drugs;
+import Models.DrugsSearch;
+import Models.PrescriptionTable;
+import Models.RecordsTable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -51,19 +59,22 @@ public class DrugSearchControll {
     private JFXButton searchDrug;
 
     @FXML
-    private TableColumn<?, ?> date;
+    private TableView<DrugsSearch> DrugsTable;
+    
+    @FXML
+    private TableColumn<DrugsSearch, String> date;
 
     @FXML
-    private TableColumn<?, ?> existingDrugBrand;
+    private TableColumn<DrugsSearch, String> existingDrugBrand;
 
     @FXML
-    private TableColumn<?, ?> existingDrug;
+    private TableColumn<DrugsSearch, String> existingDrug;
 
     @FXML
-    private TableColumn<?, ?> existingDrugQty;
+    private TableColumn<DrugsSearch, String> existingDrugQty;
 
     @FXML
-    private TableColumn<?, ?> existingDrugSupplier;
+    private TableColumn<DrugsSearch, String> existingDrugSupplier;
 
     @FXML
     private JFXButton editExistingdrug;
@@ -110,19 +121,102 @@ public class DrugSearchControll {
 		    	msg.setSuccessMessage("Drug is Added!");
     		}
     }
+    ObservableList<DrugsSearch> oblist2 = FXCollections.observableArrayList();
     @FXML
-    void SearchByBrand(KeyEvent event) {
-
+    void SearchByBrand(KeyEvent event) throws SQLException, ClassNotFoundException {
+    	if(event.getCode().equals(KeyCode.ENTER)) {
+    		con = conOBJ.getConnection();
+        	if(!searchByBrand.getText().equals(null)) {
+        		String PatientID = searchByBrand.getText();
+        		String sql1 = "SELECT Drug_Name,Date,Brand,Supplier,Quantity from drugs WHERE Brand = ?";
+    	    	ps = con.prepareStatement(sql1);
+    	    	ps.setString(1, PatientID);
+    	    	ResultSet rs = ps.executeQuery();
+    	    	while(rs.next()) {
+    	    		oblist2.add(
+    	    					new DrugsSearch(
+    	    								rs.getString("Date"),
+    	    								rs.getString("Drug_Name"),
+    	    								rs.getString("Brand"),
+    	    								rs.getString("Quantity"),
+    	    								rs.getString("Supplier")
+    	    							)
+    	    				);
+    	    		existingDrug.setCellValueFactory(cellData -> cellData.getValue().getDrugName());
+    	    		existingDrugBrand.setCellValueFactory(cellData -> cellData.getValue().getBrand());
+    	    		existingDrugQty.setCellValueFactory(cellData -> cellData.getValue().getQty());
+    	    		existingDrugSupplier.setCellValueFactory(cellData -> cellData.getValue().getSupplier());
+    	        	date.setCellValueFactory(cellData -> cellData.getValue().getDate());
+    	        	DrugsTable.setItems(oblist2);
+    	    	}
+    	    	
+        	}
+    	}
     }
 
     @FXML
-    void SearchByDrugName(KeyEvent event) {
-
+    void SearchByDrugName(KeyEvent event) throws ClassNotFoundException, SQLException {
+    	if(event.getCode().equals(KeyCode.ENTER)) {
+    		con = conOBJ.getConnection();
+        	
+        	if(!searchByDrug.getText().equals(null)) {
+        		String PatientID = searchByDrug.getText();
+        		String sql1 = "SELECT Drug_Name,Date,Brand,Supplier,Quantity from drugs WHERE Drug_Name = ?";
+    	    	ps = con.prepareStatement(sql1);
+    	    	ps.setString(1, PatientID);
+    	    	ResultSet rs = ps.executeQuery();
+    	    	while(rs.next()) {
+    	    		oblist2.add(
+    	    					new DrugsSearch(
+    	    								rs.getString("Date"),
+    	    								rs.getString("Drug_Name"),
+    	    								rs.getString("Brand"),
+    	    								rs.getString("Quantity"),
+    	    								rs.getString("Supplier")
+    	    							)
+    	    				);
+    	    		existingDrug.setCellValueFactory(cellData -> cellData.getValue().getDrugName());
+    	    		existingDrugBrand.setCellValueFactory(cellData -> cellData.getValue().getBrand());
+    	    		existingDrugQty.setCellValueFactory(cellData -> cellData.getValue().getQty());
+    	    		existingDrugSupplier.setCellValueFactory(cellData -> cellData.getValue().getSupplier());
+    	        	date.setCellValueFactory(cellData -> cellData.getValue().getDate());
+    	        	DrugsTable.setItems(oblist2);
+    	    	}
+    	    	
+        	}
+    	}
     }
 
     @FXML
-    void searchBySupplier(KeyEvent event) {
-
+    void searchBySupplier(KeyEvent event) throws ClassNotFoundException, SQLException {
+    	if(event.getCode().equals(KeyCode.ENTER)) {
+    		con = conOBJ.getConnection();
+        	if(!searchBySupplier.getText().equals(null)) {
+        		String PatientID = searchBySupplier.getText();
+        		String sql1 = "SELECT Drug_Name,Date,Brand,Supplier,Quantity from drugs WHERE Drug_Name = ?";
+    	    	ps = con.prepareStatement(sql1);
+    	    	ps.setString(1, PatientID);
+    	    	ResultSet rs = ps.executeQuery();
+    	    	while(rs.next()) {
+    	    		oblist2.add(
+    	    					new DrugsSearch(
+    	    								rs.getString("Date"),
+    	    								rs.getString("Drug_Name"),
+    	    								rs.getString("Brand"),
+    	    								rs.getString("Quantity"),
+    	    								rs.getString("Supplier")
+    	    							)
+    	    				);
+    	    		existingDrug.setCellValueFactory(cellData -> cellData.getValue().getDrugName());
+    	    		existingDrugBrand.setCellValueFactory(cellData -> cellData.getValue().getBrand());
+    	    		existingDrugQty.setCellValueFactory(cellData -> cellData.getValue().getQty());
+    	    		existingDrugSupplier.setCellValueFactory(cellData -> cellData.getValue().getSupplier());
+    	        	date.setCellValueFactory(cellData -> cellData.getValue().getDate());
+    	        	DrugsTable.setItems(oblist2);
+    	    	}
+    	    	
+        	}
+    	}
     }
     @FXML
     void searchDrugs(ActionEvent event) {

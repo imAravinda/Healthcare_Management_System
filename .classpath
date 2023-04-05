@@ -36,17 +36,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaFX">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="D:/Program Files/Eclipse/eclipse-workspace/Healthcare_System/lib/controlsfx-11.1.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Healthcare_System/lib/jfoenix-9.0.10.jar"/>
-	<classpathentry kind="lib" path="/Healthcare_System/lib/javax.mail.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javaFX">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="E:/Java/Healthcare_Management_System/lib/javax.mail.jar"/>
+	<classpathentry kind="lib" path="E:/Java/Healthcare_Management_System/lib/jfoenix-9.0.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

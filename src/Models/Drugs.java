@@ -1,5 +1,6 @@
 package Models;
 
+import javafx.beans.property.SimpleStringProperty;
 
 public class Drugs {
 	private String DrugName;
@@ -12,4 +13,5 @@ public class Drugs {
 	public String getName() {
 		return DrugName;
 	}
+	
 }
