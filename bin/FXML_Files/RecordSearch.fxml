@@ -34,9 +34,9 @@
             <Image url="@../Images/ARROW.png" />
          </image>
       </ImageView>
-      <TextField fx:id="searchByPatient" layoutX="58.0" layoutY="119.0" onKeyPressed="#SearchPatient" prefHeight="40.0" prefWidth="220.0" promptText="Search by Patient" />
-      <TextField fx:id="searchByDrug" layoutX="315.0" layoutY="119.0" onKeyPressed="#SearchDrug" prefHeight="40.0" prefWidth="220.0" promptText="Search by Drug" />
-      <TextField fx:id="searchByDate" layoutX="567.0" layoutY="119.0" onKeyPressed="#SearchDate" prefHeight="40.0" prefWidth="220.0" promptText="Search by Date" />
+      <TextField fx:id="searchByPatient" layoutX="58.0" layoutY="119.0" prefHeight="40.0" prefWidth="220.0" promptText="Search by Patient" />
+      <TextField fx:id="searchByDrug" layoutX="315.0" layoutY="119.0" prefHeight="40.0" prefWidth="220.0" promptText="Search by Drug" />
+      <TextField fx:id="searchByDate" layoutX="567.0" layoutY="119.0" prefHeight="40.0" prefWidth="220.0" promptText="Search by Date" />
       <JFXButton fx:id="searchRecords" layoutX="566.0" layoutY="174.0" onAction="#SearchRecords" prefHeight="38.0" prefWidth="220.0" text="Search" textFill="WHITE">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -44,11 +44,11 @@
       </JFXButton>
       <TableView fx:id="RecordSearchTable" layoutX="58.0" layoutY="241.0" prefHeight="438.0" prefWidth="729.0">
         <columns>
-          <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
           <TableColumn fx:id="patientID" prefWidth="113.60003662109375" text="Patient ID" />
             <TableColumn fx:id="patientName" prefWidth="169.60003662109375" text="Patient Name" />
             <TableColumn fx:id="drugName" prefWidth="164.79995727539062" text="Drug" />
-            <TableColumn fx:id="disease" prefWidth="203.2000732421875" text="Disease" />
+            <TableColumn fx:id="Disease" prefWidth="203.2000732421875" text="Disease" />
         </columns>
       </TableView>
    </children>

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane1" prefHeight="459.0" prefWidth="707.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminControll">
+<AnchorPane fx:id="pane1" prefHeight="459.0" prefWidth="707.0" stylesheets="@../CSS_Files/application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminControll">
    <children>
       <Pane fx:id="Messages" layoutX="94.0" layoutY="122.0" onMouseClicked="#Messages" prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -51,11 +51,6 @@
       <ImageView fitHeight="36.0" fitWidth="250.0" layoutX="50.0" layoutY="391.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/Logoo.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="back" fitHeight="18.0" fitWidth="27.0" layoutX="23.0" layoutY="45.0" onMouseClicked="#backword" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Images/ARROW.png" />
          </image>
       </ImageView>
       <JFXButton fx:id="Logout" layoutX="471.0" layoutY="392.0" onAction="#logout" prefHeight="34.0" prefWidth="127.0" text="Log Out" textFill="WHITE">

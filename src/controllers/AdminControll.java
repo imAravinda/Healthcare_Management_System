@@ -64,21 +64,21 @@ public class AdminControll {
 		}
     }
 
-    @FXML
-    void backword(MouseEvent event) {
-    	Logout.getScene().getWindow().hide();
-    	Stage backword = new Stage();
-    	try {
-			Parent root = FXMLLoader.load(getClass().getResource("/FXML_Files/LoginFxml.fxml"));
-			Scene scene = new Scene(root);
-			backword.setResizable(false);
-			backword.setScene(scene);
-			backword.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+//    @FXML
+//    void backword(MouseEvent event) {
+//    	Logout.getScene().getWindow().hide();
+//    	Stage backword = new Stage();
+//    	try {
+//			Parent root = FXMLLoader.load(getClass().getResource("/FXML_Files/LoginFxml.fxml"));
+//			Scene scene = new Scene(root);
+//			backword.setResizable(false);
+//			backword.setScene(scene);
+//			backword.show();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    }
 
     @FXML
     void logout(ActionEvent event) {
