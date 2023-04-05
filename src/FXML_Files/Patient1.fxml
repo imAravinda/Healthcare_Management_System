@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="880.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Patient1Controll">
+<ScrollPane maxHeight="880.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="775.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Patient1Controll">
   <content>
     <AnchorPane fx:id="pane1" maxHeight="880.0" maxWidth="735.0" minHeight="0.0" minWidth="0.0" prefHeight="880.0" prefWidth="720.0" stylesheets="@../CSS_Files/application.css">
          <children>
@@ -61,7 +61,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TableView layoutX="60.0" layoutY="444.0" prefHeight="114.0" prefWidth="618.0">
+            <TableView fx:id="DieseaseTable" layoutX="60.0" layoutY="444.0" prefHeight="114.0" prefWidth="618.0">
               <columns>
                 <TableColumn fx:id="Date" prefWidth="75.0" text="Date" />
                 <TableColumn fx:id="Disease" prefWidth="281.59999084472656" text="Disease" />

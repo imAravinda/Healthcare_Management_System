@@ -11,6 +11,9 @@ import com.jfoenix.controls.JFXButton;
 
 import AlertMessage.Message;
 import Data_Base.DataBase_Connection;
+import Models.PrescriptionTable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -54,15 +58,17 @@ public class Patient1Controll{
 	 @FXML
 	 private Label Gender;
 
+	 @FXML
+	 private TableView<PrescriptionTable> DieseaseTable;
+	 
+    @FXML
+    private TableColumn<PrescriptionTable, String> Date;
 
     @FXML
-    private TableColumn<?, ?> Date;
+    private TableColumn<PrescriptionTable, String> Disease;
 
     @FXML
-    private TableColumn<?, ?> Disease;
-
-    @FXML
-    private TableColumn<?, ?> drug;
+    private TableColumn<PrescriptionTable, String> drug;
 
     @FXML
     private TextArea EditRequest;
@@ -75,20 +81,40 @@ public class Patient1Controll{
 
     @FXML
     private JFXButton logout;
-    private PreparedStatement ps;
+    private PreparedStatement ps,ps1;
     DataBase_Connection conOBJ = new DataBase_Connection();
     Connection con;
     ResultSet resultSet=null;
     Message msg = new Message();
-    private PreparedStatement psCheckUserExists=null;
+    
+    ObservableList<PrescriptionTable> oblist2 = FXCollections.observableArrayList();
     public void LoginDetails(String ID) throws SQLException, ClassNotFoundException {
         con = conOBJ.getConnection();
         String sql = "SELECT Patient_ID,Name,Email,DOB,Weight,Height,Blood_Group,Gender FROM Patient WHERE Patient_ID =?";
+        String sql1 = "SELECT Date,Drugs,Disease FROM prescription WHERE Patient_ID = ?";
     	ps = con.prepareStatement(sql);
+    	ps1 = con.prepareStatement(sql1);
+    	ps1.setString(1, ID);
     	ps.setString(1, ID);
     	ResultSet rs = ps.executeQuery();
+    	ResultSet rs1 = ps1.executeQuery();
+    	
         if(rs.next()) { 
-//        	System.out.println( "This is rs" + rs.getString(1));
+        	System.out.println( "This is rs" + rs.getString(1));
+        	if(rs1.next()) {
+        		
+        		oblist2.add(
+        				new PrescriptionTable(
+        						rs1.getString("Date"),
+        						rs1.getString("Drugs"),
+        						rs1.getString("Disease")
+        				)
+        			);
+        		drug.setCellValueFactory(cellData -> cellData.getValue().getDrugs());
+	        	Disease.setCellValueFactory(cellData -> cellData.getValue().getDisease());
+	        	Date.setCellValueFactory(cellData -> cellData.getValue().getdate());
+	        	DieseaseTable.setItems(oblist2);
+        	}
         	String PatientID = rs.getString("Patient_ID");
             Patient_ID.setText(PatientID);
             String FullName = rs.getString("Name");
